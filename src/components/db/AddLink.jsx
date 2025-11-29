@@ -2,10 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "@/api/categoryApi";
 import { addLink } from "@/api/linkApi";
-import { inferTagsFromUrls, inferSectionFromCategoryAndTags } from "@/utils/linkHelpers";
+import {
+  inferTagsFromUrls,
+  inferSectionFromCategoryAndTags
+} from "@/utils/linkHelpers";
 
 const AddLink = () => {
   const [categories, setCategories] = useState([]);
+
+  // Form State
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [urls, setUrls] = useState([{ label: "Main", link: "" }]);
@@ -14,6 +19,7 @@ const AddLink = () => {
   const [description, setDescription] = useState("");
   const [rank, setRank] = useState("");
 
+  // Load categories on mount
   useEffect(() => {
     (async () => {
       const data = await getCategories();
@@ -21,39 +27,48 @@ const AddLink = () => {
     })();
   }, []);
 
+  // Add new mirror URL field
   const addUrlField = () => {
     setUrls([...urls, { label: `Mirror ${urls.length}`, link: "" }]);
   };
 
+  // Update URL field
   const updateUrlField = (index, field, value) => {
     const next = [...urls];
     next[index][field] = value;
     setUrls(next);
   };
 
+  // Remove mirror
   const removeUrlField = (index) => {
     setUrls(urls.filter((_, i) => i !== index));
   };
 
+  // Auto-detect tags & section
   const handleAutoFill = () => {
-    // infer tags and section
     const autoTags = inferTagsFromUrls(urls);
+
     const manualTags = tagsInput
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean);
-    const combinedTags = Array.from(new Set([...manualTags, ...autoTags]));
+
+    // merge + dedupe tags
+    const combined = Array.from(new Set([...manualTags, ...autoTags]));
 
     const category = categories.find((c) => c._id === selectedCategoryId);
-    const inferredSection = inferSectionFromCategoryAndTags(
+
+    const autoSection = inferSectionFromCategoryAndTags(
       category?.name,
-      combinedTags
+      combined
     );
 
-    setTagsInput(combinedTags.join(", "));
-    if (!section) setSection(inferredSection);
+    setTagsInput(combined.join(", "));
+
+    if (!section) setSection(autoSection);
   };
 
+  // Submit
   const handleSubmit = async () => {
     if (!title) return alert("Title required");
     if (!selectedCategoryId) return alert("Choose a category");
@@ -72,12 +87,14 @@ const AddLink = () => {
       rank: rank ? Number(rank) : 999,
       description,
       tags: finalTags,
-      addedBy: "admin",
+      addedBy: "admin"
     };
 
     try {
       await addLink(payload);
       alert("Link added (pending)!");
+
+      // Reset
       setTitle("");
       setUrls([{ label: "Main", link: "" }]);
       setSection("");
@@ -135,9 +152,10 @@ const AddLink = () => {
         </div>
       </div>
 
-      {/* URLs */}
+      {/* URLs / Mirrors */}
       <div>
         <label className="text-sm text-white/70">URLs (mirrors)</label>
+
         <div className="space-y-2 mt-1">
           {urls.map((u, i) => (
             <div key={i} className="flex gap-2">
@@ -163,6 +181,7 @@ const AddLink = () => {
             </div>
           ))}
         </div>
+
         <button
           onClick={addUrlField}
           className="mt-2 text-sm px-3 py-1 rounded-lg bg-blue-600/80 hover:bg-blue-700"
@@ -184,9 +203,7 @@ const AddLink = () => {
 
       {/* Tags */}
       <div>
-        <label className="text-sm text-white/70">
-          Tags <span className="text-white/40">(comma separated)</span>
-        </label>
+        <label className="text-sm text-white/70">Tags</label>
         <input
           className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none"
           placeholder="DDL, RAW, Streaming…"
@@ -197,7 +214,7 @@ const AddLink = () => {
           onClick={handleAutoFill}
           className="mt-2 text-xs px-3 py-1 rounded-lg bg-white/10 border border-white/20 hover:bg-white/15"
         >
-          Auto-detect tags + section from URLs
+          Auto-detect tags + section
         </button>
       </div>
 
@@ -207,20 +224,19 @@ const AddLink = () => {
         <textarea
           rows={3}
           className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none text-sm"
-          placeholder="+ Largest anime library&#10;+ Modern site design&#10;- Sometimes has popups"
+          placeholder="+ Largest anime library&#10;+ Modern UI&#10;- Occasional popups"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
-      <div className="pt-2">
-        <button
-          onClick={handleSubmit}
-          className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 font-semibold"
-        >
-          Save Link (Pending)
-        </button>
-      </div>
+      {/* Submit */}
+      <button
+        onClick={handleSubmit}
+        className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 font-semibold"
+      >
+        Save Link (Pending)
+      </button>
     </div>
   );
 };

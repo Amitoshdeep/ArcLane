@@ -97,13 +97,13 @@ function Home() {
       </div>
 
       {/* Category Pills */}
-      <div className="w-[60%] mt-4">
+      {/* <div className="w-[60%] mt-4">
         <CategoryBar
           categories={categories}
           activeCategoryId={activeCategory}
           onSelect={setActiveCategory}
         />
-      </div>
+      </div> */}
 
       {/* Sections */}
       <div className="w-[60%] mt-6">

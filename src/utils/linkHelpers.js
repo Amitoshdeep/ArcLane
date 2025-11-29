@@ -1,60 +1,98 @@
 // src/utils/linkHelpers.js
 
-// Simple helpers to pull tags out of URLs and decide section
+//------------------------------------------------------
+// 1. AUTO TAG EXTRACTION FROM URLS
+//------------------------------------------------------
+export function inferTagsFromUrls(urls = []) {
+  const tagSet = new Set();
 
-export const inferTagsFromUrls = (urls) => {
-  const tags = new Set();
+  const rules = [
+    { keyword: "ddl", tag: "DDL" },
+    { keyword: "direct", tag: "DDL" },
 
-  urls.forEach(({ link }) => {
-    if (!link) return;
-    const lower = link.toLowerCase();
+    { keyword: "raw", tag: "RAW" },
+    { keyword: "sub", tag: "Subbed" },
+    { keyword: "dub", tag: "Dubbed" },
 
-    if (lower.includes("ddl")) tags.add("DDL");
-    if (lower.includes("raw")) tags.add("RAW");
-    if (lower.includes("usenet")) tags.add("USENET");
-    if (lower.includes("torrent") || lower.includes("nyaa")) tags.add("Torrent");
-    if (lower.includes("stream")) tags.add("Streaming");
-    if (lower.includes("download")) tags.add("Download");
+    { keyword: "torrent", tag: "Torrent" },
+    { keyword: "nyaa", tag: "Torrent" },
 
-    // domain-based tags
-    try {
-      const urlObj = new URL(link);
-      const host = urlObj.hostname;
-      const tld = host.split(".").pop();
-      if (tld) tags.add(`.${tld}`);
-    } catch {
-      // ignore invalid URL
-    }
+    { keyword: "stream", tag: "Streaming" },
+    { keyword: "watch", tag: "Streaming" },
+    { keyword: "player", tag: "Streaming" },
+
+    { keyword: "api", tag: "API" },
+    { keyword: "github", tag: "Github" },
+    { keyword: "docs", tag: "Docs" },
+  ];
+
+  urls.forEach((u) => {
+    const url = u.link.toLowerCase();
+
+    rules.forEach((rule) => {
+      if (url.includes(rule.keyword)) {
+        tagSet.add(rule.tag);
+      }
+    });
   });
 
-  return Array.from(tags);
-};
+  return [...tagSet];
+}
 
-export const inferSectionFromCategoryAndTags = (categoryName, tags) => {
-  const t = tags.map((x) => x.toLowerCase());
-  const hasDownload = t.some((x) =>
-    ["download", "ddl", "raw", "torrent"].some((k) => x.includes(k))
-  );
+//------------------------------------------------------
+// 2. AUTO SECTION DETECTION
+//------------------------------------------------------
+export function inferSectionFromCategoryAndTags(categoryName = "", tags = []) {
+  const name = categoryName.toLowerCase();
 
-  if (!categoryName) return hasDownload ? "Download" : "General";
+  // If user already added the section manually, keep it unchanged.
+  // This function is called only when section is empty.
 
-  const cat = categoryName.toLowerCase();
-
-  if (cat.includes("anime")) {
-    return hasDownload ? "Anime Download" : "Anime Streaming";
+  // --- Anime / Manga / Otaku ---
+  if (name.includes("anime")) {
+    if (tags.includes("Streaming")) return "Anime Streaming";
+    if (tags.includes("DDL")) return "Anime Download";
+    if (tags.includes("Torrent")) return "Anime Torrent";
+    return "Anime";
   }
 
-  if (cat.includes("manga")) {
-    return hasDownload ? "Manga Download" : "Manga Reading";
+  // --- Movies ---
+  if (name.includes("movie")) {
+    if (tags.includes("Streaming")) return "Movie Streaming";
+    if (tags.includes("DDL")) return "Movie Download";
+    if (tags.includes("Torrent")) return "Movie Torrent";
+    return "Movies";
   }
 
-  if (cat.includes("movie") || cat.includes("film")) {
-    return hasDownload ? "Movies Download" : "Streaming";
+  // --- Tech ---
+  if (name.includes("tech") || name.includes("developer")) {
+    if (tags.includes("API")) return "API Tools";
+    if (tags.includes("Github")) return "Developer Tools";
+    if (tags.includes("Docs")) return "Documentation";
+    return "Tech Tools";
   }
 
-  if (cat.includes("tools") || cat.includes("apps")) {
+  // --- Tools ---
+  if (name.includes("tool")) {
+    if (tags.includes("API")) return "API Tools";
+    if (tags.includes("Github")) return "Dev Tools";
     return "Tools";
   }
 
-  return hasDownload ? "Download" : "General";
-};
+  // --- General fallback ---
+  if (tags.includes("Torrent")) return "Torrents";
+  if (tags.includes("Streaming")) return "Streaming";
+  if (tags.includes("DDL")) return "Direct Download";
+
+  return "General";
+}
+
+//------------------------------------------------------
+// 3. OPTIONAL: CLEAN TITLE (for future auto-clean)
+//------------------------------------------------------
+export function cleanTitle(title = "") {
+  return title
+    .replace(/Official/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}

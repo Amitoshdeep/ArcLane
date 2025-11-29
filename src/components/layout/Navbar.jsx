@@ -18,9 +18,9 @@ function Navbar() {
         <Menu
         size={ICON_SIZE-4}
         className='cursor-pointer duration-300 text-white/50 hover:text-white'/>
-        <p className='text-xl text-[#136013]'>
+        <NavLink to={"/"} className='text-xl text-[#136013]'>
           ArcLane
-        </p>
+        </NavLink>
       </div>
 
       <div className='flex items-center gap-5'>
@@ -29,6 +29,7 @@ function Navbar() {
           onClick={() => window.open("https://github.com/")}
           size={ICON_SIZE}/>
         <Pen
+          onClick={()=> window.open("/dev")}
           className='cursor-pointer duration-300 text-white/50 hover:text-white'
           size={ICON_SIZE}/>
       </div>
