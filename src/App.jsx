@@ -31,7 +31,7 @@ function App() {
     React.useEffect(() => {
       axios
         .get(`${import.meta.env.VITE_API_URL}/api/admin/me`, {
-          withCredentials: true,
+          withCredentials: true
         })
         .then((res) => {
           setAllowed(res.data.admin);
@@ -39,8 +39,10 @@ function App() {
         .catch(() => setAllowed(false));
     }, []);
 
-    if (allowed === null) return <div className="text-white p-5">Checking admin...</div>;
+    // while checking
+    if (allowed === null) return <div className="text-white p-5">Checking...</div>;
 
+    // if admin → show page
     return allowed ? children : <Navigate to="/admin-login" />;
   };
 

@@ -20,9 +20,10 @@ router.post("/login", (req, res) => {
       "Set-Cookie",
       cookie.serialize("admin_session", "yes", {
         httpOnly: true,
-        sameSite: "strict",
+        secure: true,       // REQUIRED on Vercel + Railway
+        sameSite: "none",   // REQUIRED for cross-site cookies
         path: "/",
-        maxAge: 60 * 60 * 24 * 3, // 3 days
+        maxAge: 60 * 60 * 24 * 3,
       })
     );
 
