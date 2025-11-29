@@ -2,12 +2,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Search } from "lucide-react";
 
-import { getCategories } from "@/api/categoryApi";
-import { getLinks } from "@/api/linkApi";
+import { getCategories } from "api/categoryApi";
+import { getLinks } from "api/linkApi";
 
-import Section from "@/components/layout/Section";
+import Section from "components/layout/Section";
+import SectionSkeleton from "components/layout/SectionSkeleton";
+import LinkRowSkeleton from "components/layout/LinkRowSkeleton";
 
 function Home() {
+  const [loading, setLoading] = useState(true);
+
   const searchRef = useRef(null);
 
   const [categories, setCategories] = useState([]);
@@ -23,12 +27,14 @@ function Home() {
   };
 
   const loadLinks = async () => {
+    setLoading(true);
     const data = await getLinks({
       status: "approved",
       categoryId: activeCategory || undefined,
       search: search || undefined,
     });
     setLinks(data);
+    setLoading(false);
   };
 
   // group by section
@@ -85,9 +91,16 @@ function Home() {
 
       {/* TRUE MASONRY GRID */}
       <div className="w-[96%] md:w-[80%] mt-8 columns-1 md:columns-2 gap-6 space-y-6">
-        {Object.entries(grouped).map(([sec, items]) => (
+      {loading ? (
+        <>
+          <SectionSkeleton />
+          <SectionSkeleton />
+        </>
+      ) : (
+        Object.entries(grouped).map(([sec, items]) => (
           <Section key={sec} title={sec} items={items} />
-        ))}
+        ))
+      )}
       </div>
 
     </div>
