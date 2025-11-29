@@ -1,6 +1,6 @@
-// src/pages/DevDashboard.jsx
-
 import React from "react";
+import axios from "axios";
+
 import AdminDashboard from "@/components/db/AdminDashboard";
 
 function DevDashboard() {
@@ -13,8 +13,11 @@ function DevDashboard() {
 
         <button
           onClick={() => {
-            localStorage.removeItem("isAdmin");
-            window.location.href = "/admin-login";
+            axios.get(`${import.meta.env.VITE_API_URL}/api/admin/logout`, {
+              withCredentials: true,
+              }).then(() => {
+              window.location.href = "/admin-login";
+            });
           }}
           className="px-3 py-1 bg-red-600 rounded-lg text-sm md:text-lg"
         >

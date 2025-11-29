@@ -8,11 +8,11 @@ export default function AdminLogin() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
-        { password }
+        { password },
+        { withCredentials: true }
       );
 
       if (res.data.success) {
-        localStorage.setItem("isAdmin", "true");
         window.location.href = "/dev";
       } else {
         alert("Wrong password");

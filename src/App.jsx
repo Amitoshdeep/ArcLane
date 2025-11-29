@@ -1,5 +1,6 @@
 import React , {useEffect} from 'react'
 import {  Routes ,Route, Navigate } from 'react-router-dom'
+import axios from "axios";
 
 import Navbar from 'components/layout/Navbar'
 import ScrollToTop from 'components/layout/ScrollToTop'
@@ -25,8 +26,22 @@ function App() {
   }, []);
 
   const AdminRoute = ({ children }) => {
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
-    return isAdmin ? children : <Navigate to="/admin-login" />;
+    const [allowed, setAllowed] = React.useState(null);
+
+    React.useEffect(() => {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/api/admin/me`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setAllowed(res.data.admin);
+        })
+        .catch(() => setAllowed(false));
+    }, []);
+
+    if (allowed === null) return <div className="text-white p-5">Checking admin...</div>;
+
+    return allowed ? children : <Navigate to="/admin-login" />;
   };
 
 
@@ -63,6 +78,7 @@ function App() {
             </AdminRoute>
           }
         />
+
       </Routes>
       </div>
 
