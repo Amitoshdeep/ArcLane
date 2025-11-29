@@ -72,6 +72,7 @@ Admins can:
 * Express
 * MongoDB
 * Mongoose
+* Hosted on - Railway
 
 ---
 
