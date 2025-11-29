@@ -1,12 +1,16 @@
 import React , {useEffect} from 'react'
 import {  Routes ,Route, Navigate } from 'react-router-dom'
 
-import Navbar from '@/components/layout/Navbar'
-import ScrollToTop from '@/components/layout/ScrollToTop'
+import Navbar from 'components/layout/Navbar'
+import ScrollToTop from 'components/layout/ScrollToTop'
 import Home from 'pages/Home'
-import DevDashboard from './pages/DevDashboard'
-import AdminLogin from './pages/AdminLogin'
-import Submit from "@/pages/Submit";
+import DevDashboard from 'pages/DevDashboard'
+import AdminLogin from 'pages/AdminLogin'
+import Submit from "pages/Submit";
+import About from "pages/About";
+import Disclaimer from "pages/Disclaimer";
+import Footer from 'components/layout/Footer'
+import ScrollTopButton from 'components/layout/ScrollTopButton'
 
 function App() {
 
@@ -32,6 +36,7 @@ function App() {
     '>
       <ScrollToTop/>
       <Navbar/>
+      <ScrollTopButton/>
 
       {/* Custom BG */}
       <div
@@ -46,6 +51,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path='/admin-login' element={<AdminLogin/>} />
         <Route path="/submit" element={<Submit />} />
         <Route
@@ -58,6 +65,8 @@ function App() {
         />
       </Routes>
       </div>
+
+      <Footer/>
     </div>
   )
 }

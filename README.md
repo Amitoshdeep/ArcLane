@@ -65,6 +65,7 @@ Admins can:
 * React + Vite
 * TailwindCSS
 * Lucide Icons
+* React Icons
 
 ### **Backend**
 
