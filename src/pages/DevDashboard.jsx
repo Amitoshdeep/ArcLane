@@ -36,6 +36,17 @@ function DevDashboard() {
       {tab === "addCategory" && <AddCategory />}
       {tab === "addLink" && <AddLink />}
       {tab === "admin" && <AdminDashboard />}
+
+      <button
+        onClick={() => {
+          localStorage.removeItem("isAdmin");
+          window.location.href = "/admin-login";
+        }}
+        className="px-3 py-1 bg-red-600 rounded-lg ml-5"
+      >
+        Logout
+      </button>
+
     </div>
   );
 }

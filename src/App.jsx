@@ -1,10 +1,11 @@
 import React , {useEffect} from 'react'
-import {  Routes ,Route } from 'react-router-dom'
+import {  Routes ,Route, Navigate } from 'react-router-dom'
 
 import Navbar from '@/components/layout/Navbar'
 import ScrollToTop from '@/components/layout/ScrollToTop'
 import Home from 'pages/Home'
 import DevDashboard from './pages/DevDashboard'
+import AdminLogin from './pages/AdminLogin'
 
 function App() {
 
@@ -17,6 +18,12 @@ function App() {
     window.addEventListener("keydown", handle);
     return () => window.removeEventListener("keydown", handle);
   }, []);
+
+  const AdminRoute = ({ children }) => {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    return isAdmin ? children : <Navigate to="/admin-login" />;
+  };
+
 
   return (
     <div className='font-Poppins cursor-default text-white bg-black
@@ -38,7 +45,15 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path='/dev' element={ <DevDashboard/> } />
+        <Route path='/admin-login' element={<AdminLogin/>} />
+        <Route
+          path="/dev"
+          element={
+            <AdminRoute>
+              <DevDashboard />
+            </AdminRoute>
+          }
+        />
       </Routes>
       </div>
     </div>
