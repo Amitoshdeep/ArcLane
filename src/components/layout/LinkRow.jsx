@@ -45,8 +45,35 @@ const LinkRow = ({ link, index, color }) => {
         }`}
       >
         <div className="px-4 pb-4 pt-1 space-y-3">
+          {/* DESCRIPTION (auto format: + = green, - = red) */}
           {link.description && (
-            <p className="text-white/60 text-sm">{link.description}</p>
+            <div className="flex flex-col gap-1 mt-2">
+
+              {link.description
+                .split(/[\n]+|(?=\+ )|(?=\- )/g) // smart split
+                .map((line, i) => {
+                  const t = line.trim();
+                  if (!t) return null;
+
+                  const isPositive = t.startsWith("+");
+                  const isNegative = t.startsWith("-");
+
+                  return (
+                    <p
+                      key={i}
+                      className={`text-sm leading-relaxed ${
+                        isPositive
+                          ? "text-green-400"
+                          : isNegative
+                          ? "text-red-400"
+                          : "text-white/60"
+                      }`}
+                    >
+                      {t}
+                    </p>
+                  );
+                })}
+            </div>
           )}
 
           {link.urls?.length > 0 && (
