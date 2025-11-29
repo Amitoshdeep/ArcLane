@@ -12,19 +12,25 @@ const LinkSchema = new mongoose.Schema({
 
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Category"
+    ref: "Category",
+    required: true
   },
 
-  tags: [String],
-  description: String,
+  section: { type: String, default: "General" },
+  rank: { type: Number, default: 999 },
 
-  addedBy: String,
+  description: String,
+  tags: [String],
+
+  pros: [String],
+  cons: [String],
 
   status: {
     type: String,
-    default: "pending", // pending → approved → rejected
+    default: "pending"
   },
 
+  addedBy: String,
   createdAt: { type: Date, default: Date.now }
 });
 

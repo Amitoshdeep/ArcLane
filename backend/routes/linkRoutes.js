@@ -3,7 +3,6 @@ import Link from "../models/Link.js";
 
 const router = express.Router();
 
-// Add link (pending)
 router.post("/", async (req, res) => {
   try {
     const link = await Link.create(req.body);
@@ -13,30 +12,37 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all approved links
 router.get("/", async (req, res) => {
-  const links = await Link.find({ status: "approved" });
+  const { categoryId, search, status = "approved" } = req.query;
+
+  let filter = { status };
+
+  if (categoryId) filter.categoryId = categoryId;
+  if (search) {
+    filter.$or = [
+      { title: new RegExp(search, "i") },
+      { description: new RegExp(search, "i") },
+      { tags: new RegExp(search, "i") }
+    ];
+  }
+
+  const links = await Link.find(filter)
+    .populate("categoryId")
+    .sort({ section: 1, rank: 1 });
+
   res.json(links);
 });
 
-// Approve link
 router.patch("/:id/approve", async (req, res) => {
-  const link = await Link.findByIdAndUpdate(
-    req.params.id,
-    { status: "approved" },
-    { new: true }
+  res.json(
+    await Link.findByIdAndUpdate(req.params.id, { status: "approved" }, { new: true })
   );
-  res.json(link);
 });
 
-// Reject link
 router.patch("/:id/reject", async (req, res) => {
-  const link = await Link.findByIdAndUpdate(
-    req.params.id,
-    { status: "rejected" },
-    { new: true }
+  res.json(
+    await Link.findByIdAndUpdate(req.params.id, { status: "rejected" }, { new: true })
   );
-  res.json(link);
 });
 
 export default router;

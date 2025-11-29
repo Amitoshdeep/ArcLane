@@ -1,13 +1,10 @@
 import axios from "axios";
-
-const API = "http://localhost:5000/api/categories";
-
-export const addCategory = async (name, icon) => {
-  const res = await axios.post(API, { name, icon });
-  return res.data;
-};
+const BASE = "http://localhost:5000/api/categories";
 
 export const getCategories = async () => {
-  const res = await axios.get(API);
-  return res.data;
+  return (await axios.get(BASE)).data;
+};
+
+export const addCategory = async (d) => {
+  return (await axios.post(BASE, d)).data;
 };
