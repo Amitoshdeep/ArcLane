@@ -3,7 +3,7 @@ import {ExternalLink} from 'lucide-react'
 
 const LinkCard = ({ link }) => {
   return (
-    <div className="bg-black/30 border border-white/10 p-4 rounded-xl hover:bg-white/10 transition group">
+    <div className="bg-black/30 border border-white/10 p-4 rounded-xl hover:bg-white/10 transition group relative z-10">
 
       {/* Title */}
       <h2 className="text-xl font-semibold text-white group-hover:text-blue-300">

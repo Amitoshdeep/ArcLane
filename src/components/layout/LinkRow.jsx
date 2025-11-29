@@ -1,27 +1,62 @@
-import { useEffect, useState } from "react";
-import { getLinks } from "@/api/linkApi";
+// src/components/Main/LinkRow.jsx
 
-function LinkGrid() {
-  const [links, setLinks] = useState([]);
+import React from "react";
+import { ExternalLink } from "lucide-react";
 
-  useEffect(() => {
-    load();
-  }, []);
-
-  const load = async () => {
-    const data = await getLinks({ status: "approved" });
-    setLinks(data);
-  };
-
+const LinkRow = ({ link, index }) => {
   return (
-    <div className="grid grid-cols-3 gap-4 text-white">
-      {links.map((l) => (
-        <div key={l._id} className="p-4 bg-black/30 border border-white/10 rounded">
-          <h2>{l.title}</h2>
+    <div className="border border-white/10 bg-black/30 hover:bg-white/5 transition rounded-lg p-4">
+
+      {/* Title Row */}
+      <div className="flex items-center justify-between">
+        <div className="font-semibold text-white text-lg">
+          {index + 1}. {link.title}
         </div>
-      ))}
+
+        <div className="text-white/40 text-sm">
+          {link.categoryId?.name || "Unknown"}
+        </div>
+      </div>
+
+      {/* Description */}
+      {link.description && (
+        <p className="text-white/60 text-sm mt-2 leading-relaxed">
+          {link.description}
+        </p>
+      )}
+
+      {/* Mirror Links */}
+      {link.urls?.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {link.urls.map((url, i) => (
+            <a
+              key={i}
+              href={url.link}
+              target="_blank"
+              className="flex items-center gap-2 bg-blue-600/20 border border-blue-600/50 hover:bg-blue-600/40 px-3 py-1 rounded text-blue-300 text-sm transition"
+            >
+              {url.label}
+              <ExternalLink size={14} />
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Tags */}
+      {link.tags?.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {link.tags.map((t, i) => (
+            <span
+              key={i}
+              className="px-2 py-1 text-xs rounded bg-white/10 border border-white/20 text-white/70"
+            >
+              #{t}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default LinkGrid;
+export default LinkRow;

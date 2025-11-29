@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Search } from "lucide-react";
 
 import { getCategories } from "@/api/categoryApi";
@@ -9,6 +9,8 @@ import Section from "@/components/layout/Section";
 import LinkRow from "@/components/layout/LinkRow";
 
 function Home() {
+  const searchRef = useRef(null);
+
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -35,6 +37,7 @@ function Home() {
         search: search || undefined,
       })
     );
+    console.log("LOADED LINKS:", links);
   };
 
   const grouped = links.reduce((acc, link) => {
@@ -44,6 +47,23 @@ function Home() {
     return acc;
   }, {});
 
+  // search
+  useEffect(() => {
+    const handler = (e) => {
+      // If user is already typing in an input/textarea, ignore
+      const tag = e.target.tagName.toLowerCase();
+      if (tag === "input" || tag === "textarea") return;
+
+      if (e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col items-center pb-20">
 
@@ -52,6 +72,7 @@ function Home() {
 
         <div className="flex relative w-full">
           <input
+            ref={searchRef}
             type="text"
             placeholder="Search ( F )"
             className="border-b border-white/20 px-5 py-2 pr-10 outline-none w-full bg-transparent text-white"

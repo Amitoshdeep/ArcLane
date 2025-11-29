@@ -1,13 +1,25 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import {  Routes ,Route } from 'react-router-dom'
 
 import Navbar from '@/components/layout/Navbar'
 import ScrollToTop from '@/components/layout/ScrollToTop'
 import Home from 'pages/Home'
+import DevDashboard from './pages/DevDashboard'
 
 function App() {
+
+  useEffect(() => {
+    const handle = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "q") {
+        window.location.href = "/dev";
+      }
+    };
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
+  }, []);
+
   return (
-    <div className='font-Poppins cursor-default text-white
+    <div className='font-Poppins cursor-default text-white bg-black
     min-h-[100dvh] w-full relative
     '>
       <ScrollToTop/>
@@ -22,13 +34,11 @@ function App() {
       />
 
       {/* Routes */}
-      <div className="px-20 py-5">
+      <div className="px-20 py-5 relative z-10">
 
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/about" element={<h1 className='h-screen'>About Page</h1>} />
-        <Route path="/projects" element={<h1 className='h-screen'>Projects Page</h1>} />
-        <Route path="/contact" element={<h1 className='h-screen'>Contact Page</h1>} />
+        <Route path='/dev' element={ <DevDashboard/> } />
       </Routes>
       </div>
     </div>

@@ -1,76 +1,91 @@
-import { useEffect, useState } from "react";
-import { getPendingLinks, approveLink, rejectLink } from "@/api/adminApi";
+// src/components/db/AdminDashboard.jsx
+import React, { useEffect, useState } from "react";
+import { getLinks, approveLink, rejectLink } from "@/api/linkApi";
 
 const AdminDashboard = () => {
   const [pending, setPending] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const load = async () => {
+    setLoading(true);
+    const data = await getLinks({ status: "pending" });
+
+    console.log("PENDING FROM API:", data); // <- debug
+
+    // sort by section then rank
+    data.sort((a, b) => {
+      if (a.section === b.section) return (a.rank || 999) - (b.rank || 999);
+      return (a.section || "").localeCompare(b.section || "");
+    });
+
+    setPending(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
     load();
   }, []);
 
-  const load = async () => {
-    const data = await getPendingLinks();
-    setPending(data);
-  };
-
   const handleApprove = async (id) => {
     await approveLink(id);
-    load();
+    await load();
   };
 
   const handleReject = async (id) => {
     await rejectLink(id);
-    load();
+    await load();
   };
 
   return (
-    <div className="p-6 text-white space-y-5">
-      <h1 className="text-2xl font-bold mb-3">Admin Dashboard — Pending Links</h1>
+    <div className="w-[60%] mt-10 text-white">
+      <div className="flex justify-between items-center mb-3">
+        <h2 className="text-xl font-semibold">Admin — Pending Links</h2>
+        <button
+          onClick={load}
+          className="text-sm px-3 py-1 rounded-lg bg-white/5 border border-white/15 hover:bg-white/10"
+        >
+          Refresh
+        </button>
+      </div>
 
-      {pending.length === 0 && (
-        <p className="text-gray-400">No pending links 🎉</p>
+      {loading && <p className="text-white/50 text-sm mb-2">Loading…</p>}
+      {!loading && pending.length === 0 && (
+        <p className="text-white/40 text-sm">No pending links 🎉</p>
       )}
 
-      <div className="space-y-4">
-        {pending.map((link) => (
+      <div className="space-y-3 mt-3">
+        {pending.map((link, idx) => (
           <div
             key={link._id}
-            className="bg-black/30 border border-white/10 p-4 rounded-xl"
+            className="border border-white/15 rounded-lg p-3 bg-black/40"
           >
-            <h2 className="text-xl font-semibold">{link.title}</h2>
-            <p className="mt-1 text-gray-400">{link.description}</p>
-
-            {/* URLs */}
-            <div className="mt-2 space-y-1">
-              {link.urls.map((u, i) => (
-                <div
-                  key={i}
-                  className="bg-black/50 px-3 py-1 rounded text-sm border border-white/10"
-                >
-                  <strong>{u.label}:</strong> {u.link}
-                </div>
-              ))}
+            {/* SIMPLE DEBUG VIEW */}
+            <div className="mb-2">
+              <div className="text-sm text-white/50">_id: {link._id}</div>
+              <div className="text-lg font-semibold">
+                {idx + 1}. {link.title || "<no title>"}
+              </div>
+              <div className="text-xs text-white/60">
+                section: {link.section || "none"}, rank: {link.rank || 999}
+              </div>
+              <div className="text-xs text-white/60">
+                category: {link.categoryId?.name || link.categoryId || "none"}
+              </div>
+              <div className="mt-1 text-xs text-white/60">
+                urls: {Array.isArray(link.urls) ? link.urls.length : 0}
+              </div>
             </div>
 
-            {/* Tags */}
-            {link.tags.length > 0 && (
-              <p className="mt-2 text-sm text-blue-300">
-                Tags: {link.tags.join(", ")}
-              </p>
-            )}
-
-            {/* Buttons */}
-            <div className="mt-4 flex gap-3">
+            <div className="mt-3 flex gap-3 justify-end">
               <button
                 onClick={() => handleApprove(link._id)}
-                className="bg-green-600 px-4 py-2 rounded hover:bg-green-700"
+                className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-sm"
               >
                 Approve
               </button>
-
               <button
                 onClick={() => handleReject(link._id)}
-                className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+                className="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-sm"
               >
                 Reject
               </button>

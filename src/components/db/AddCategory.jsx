@@ -1,46 +1,54 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { addCategory } from "@/api/categoryApi";
 
 const AddCategory = () => {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState("");
 
-  const submit = async () => {
-    if (!name) return alert("Enter name");
+  const handleSubmit = async () => {
+    if (!name) return alert("Category name required");
 
-    try {
-      const res = await addCategory(name, icon);
-      alert("Category added!");
-      setName("");
-      setIcon("");
-      console.log("Saved:", res);
-    } catch (err) {
-      alert("Error saving category");
-      console.log(err);
-    }
+    await addCategory({ name, icon: icon || "📁" });
+
+    alert("Category added!");
+
+    setName("");
+    setIcon("");
   };
 
   return (
-    <div className="p-4 bg-black/20 rounded-xl border border-white/20">
-      <input
-        className="bg-black/50 w-full p-2 rounded mb-2"
-        placeholder="Category name (e.g. Anime)"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <div className="w-[60%] mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5">
+      <h2 className="text-xl font-semibold mb-2">Add Category</h2>
 
-      <input
-        className="bg-black/50 w-full p-2 rounded mb-2"
-        placeholder="Icon (e.g. 🍥)"
-        value={icon}
-        onChange={(e) => setIcon(e.target.value)}
-      />
+      {/* Name */}
+      <div>
+        <label className="text-sm text-white/70">Category Name</label>
+        <input
+          className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none"
+          placeholder="Anime, Manga, Movies, Tools..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+
+      {/* Icon */}
+      <div>
+        <label className="text-sm text-white/70">
+          Icon <span className="text-white/40">(emoji)</span>
+        </label>
+        <input
+          className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none"
+          placeholder="📺, 📚, 🎬, 🛠️..."
+          value={icon}
+          onChange={(e) => setIcon(e.target.value)}
+        />
+      </div>
 
       <button
-        onClick={submit}
-        className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
+        onClick={handleSubmit}
+        className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 font-semibold"
       >
-        Add Category
+        Save Category
       </button>
     </div>
   );

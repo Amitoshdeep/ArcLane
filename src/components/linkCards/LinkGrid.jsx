@@ -15,7 +15,7 @@ const LinkGrid = () => {
   };
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 text-white relative z-10">
       <h1 className="text-2xl font-bold mb-4">Approved Links</h1>
 
       {links.length === 0 && (
