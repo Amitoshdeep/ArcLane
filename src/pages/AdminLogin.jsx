@@ -6,7 +6,10 @@ export default function AdminLogin() {
 
   const login = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/admin/login", { password });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/admin/login`,
+        { password }
+      );
 
       if (res.data.success) {
         localStorage.setItem("isAdmin", "true");
