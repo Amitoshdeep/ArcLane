@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+*{
+  scrollbar-width: thin;
+}
+
+@theme{
+  --font-Poppins: "Poppins", sans-serif;
+}
+
+.inset-box-shadow{
+  box-shadow: inset 0 -12px 12px -20px rgb(255, 255, 255, 0.5);
+}
