@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "http://localhost:5000/api/categories";
+const BASE = "https://arclane-production.up.railway.app/api/categories";
 
 // --------------------
 // PUBLIC — Only approved categories for dropdown

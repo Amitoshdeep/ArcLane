@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/links";
+const API = "https://arclane-production.up.railway.app/api/links";
 
 export const getPendingLinks = async () => {
   const res = await axios.get(API + "?status=pending");

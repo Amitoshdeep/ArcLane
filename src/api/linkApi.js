@@ -1,7 +1,7 @@
 // src/api/linkApi.js
 import axios from "axios";
 
-const BASE = "http://localhost:5000/api/links";
+const BASE = "https://arclane-production.up.railway.app/api/links";
 
 // Generic fetch with filters (used by Home + Admin)
 export const getLinks = async ({ status, categoryId, search } = {}) => {
