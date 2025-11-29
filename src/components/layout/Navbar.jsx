@@ -29,7 +29,7 @@ function Navbar() {
           onClick={() => window.open("https://github.com/Amitoshdeep/ArcLane")}
           size={ICON_SIZE}/>
         <Pen
-          onClick={()=> location.href="/dev"}
+          onClick={()=> location.href="/submit"}
           className='cursor-pointer duration-300 text-white/50 hover:text-white'
           size={ICON_SIZE}/>
       </div>

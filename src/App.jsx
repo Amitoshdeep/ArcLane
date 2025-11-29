@@ -6,6 +6,7 @@ import ScrollToTop from '@/components/layout/ScrollToTop'
 import Home from 'pages/Home'
 import DevDashboard from './pages/DevDashboard'
 import AdminLogin from './pages/AdminLogin'
+import Submit from "@/pages/Submit";
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path='/admin-login' element={<AdminLogin/>} />
+        <Route path="/submit" element={<Submit />} />
         <Route
           path="/dev"
           element={
