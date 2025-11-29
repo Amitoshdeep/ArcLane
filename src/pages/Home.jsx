@@ -84,10 +84,24 @@ function Home() {
       </div>
 
       {/* 2-COLUMN EXACT MASONRY */}
-      <div className="w-full md:w-[80%] mt-8 flex gap-6 px-5 md:px-0">
+      <div className="w-full md:w-[80%] mt-8 flex flex-col md:flex-row gap-6 px-5 md:px-0">
 
-        {/* Column 1 */}
-        <div className="flex-1 space-y-6">
+        {/* MOBILE: merged */}
+        <div className="flex-1 space-y-6 md:hidden">
+          {loading ? (
+            <>
+              <SectionSkeleton />
+              <SectionSkeleton />
+            </>
+          ) : (
+            grouped.map(([sec, items]) => (
+              <Section key={sec} title={sec} items={items} />
+            ))
+          )}
+        </div>
+
+        {/* Desktop Column 1 */}
+        <div className="hidden md:flex md:flex-col flex-1 space-y-6">
           {loading
             ? <SectionSkeleton />
             : col1.map(([sec, items]) => (
@@ -96,8 +110,8 @@ function Home() {
           }
         </div>
 
-        {/* Column 2 */}
-        <div className="hidden md:flex flex-1 flex-col space-y-6">
+        {/* Desktop Column 2 */}
+        <div className="hidden md:flex md:flex-col flex-1 space-y-6">
           {loading
             ? <SectionSkeleton />
             : col2.map(([sec, items]) => (
