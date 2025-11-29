@@ -6,19 +6,27 @@ const AddCategory = () => {
   const [icon, setIcon] = useState("");
 
   const handleSubmit = async () => {
-    if (!name) return alert("Category name required");
+    if (!name.trim()) return alert("Category name required");
 
-    await addCategory({ name, icon: icon || "📁" });
+    try {
+      await addCategory({
+        name: name.trim(),
+        icon: icon.trim() || "📁"
+      });
 
-    alert("Category added!");
+      alert("Category submitted for approval!");
 
-    setName("");
-    setIcon("");
+      setName("");
+      setIcon("");
+    } catch (err) {
+      console.error(err);
+      alert("Error adding category");
+    }
   };
 
   return (
     <div className="w-[60%] mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5">
-      <h2 className="text-xl font-semibold mb-2">Add Category</h2>
+      <h2 className="text-xl font-semibold mb-2">Submit New Category</h2>
 
       {/* Name */}
       <div>
@@ -48,7 +56,7 @@ const AddCategory = () => {
         onClick={handleSubmit}
         className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 font-semibold"
       >
-        Save Category
+        Submit Category (Pending)
       </button>
     </div>
   );
