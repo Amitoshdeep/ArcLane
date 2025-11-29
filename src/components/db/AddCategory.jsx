@@ -25,7 +25,7 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="w-[60%] mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5">
+    <div className="md:w-[60%] mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5">
       <h2 className="text-xl font-semibold mb-2">Submit New Category</h2>
 
       {/* Name */}

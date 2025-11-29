@@ -58,7 +58,7 @@ function Home() {
     <div className="min-h-screen flex flex-col items-center pb-20">
 
       {/* SEARCH BAR */}
-      <div className="flex w-[60%] mt-10 gap-2">
+      <div className="flex w-full md:w-[60%] px-5 md:px-0 mt-10 gap-2">
         <div className="flex relative w-full">
           <input
             ref={searchRef}
@@ -84,7 +84,7 @@ function Home() {
       </div>
 
       {/* TRUE MASONRY GRID */}
-      <div className="w-[80%] mt-8 columns-1 md:columns-2 gap-6 space-y-6">
+      <div className="w-[96%] md:w-[80%] mt-8 columns-1 md:columns-2 gap-6 space-y-6">
         {Object.entries(grouped).map(([sec, items]) => (
           <Section key={sec} title={sec} items={items} />
         ))}

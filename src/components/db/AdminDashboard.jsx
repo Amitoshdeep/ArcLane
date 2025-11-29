@@ -66,15 +66,15 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="w-[90%] mx-auto text-white space-y-6">
+    <div className="w-full md:w-[90%] mx-auto text-white space-y-6">
 
       {/* HEADER */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Admin Moderation</h2>
+        <h2 className="md:text-xl font-semibold">Admin Moderation</h2>
 
         <button
           onClick={loadAll}
-          className="px-4 py-2 rounded-lg bg-white/5 border border-white/15 hover:bg-white/10"
+          className="px-4 py-2 rounded-lg bg-white/5 border border-white/15 hover:bg-white/10 text-[12px] md:text-lg"
         >
           Refresh All
         </button>
@@ -87,7 +87,7 @@ const AdminDashboard = () => {
 
         {/* LEFT — Pending Categories */}
         <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-          <h3 className="text-lg font-semibold mb-3">Pending Categories</h3>
+          <h3 className="text-sm md:text-lg font-semibold mb-3">Pending Categories</h3>
 
           {pendingCats.length === 0 && (
             <p className="text-white/40 text-sm">No pending categories 🎉</p>
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
                 key={c._id}
                 className="flex items-center justify-between bg-white/10 p-3 rounded-lg border border-white/20"
               >
-                <div className="text-md">
+                <div className="text-sm md:text-md">
                   {c.icon} {c.name}
                 </div>
 
@@ -125,7 +125,7 @@ const AdminDashboard = () => {
 
         {/* RIGHT — Pending Links */}
         <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-          <h3 className="text-lg font-semibold mb-3">Pending Links</h3>
+          <h3 className="text-sm md:text-lg font-semibold mb-3">Pending Links</h3>
 
           {pendingLinks.length === 0 && (
             <p className="text-white/40 text-sm">No pending links 🎉</p>
@@ -143,7 +143,7 @@ const AdminDashboard = () => {
                     _id: {link._id}
                   </div>
 
-                  <div className="text-lg font-semibold">
+                  <div className="text-md md:text-lg font-semibold">
                     {idx + 1}. {link.title}
                   </div>
 

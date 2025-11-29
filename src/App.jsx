@@ -42,7 +42,7 @@ function App() {
       />
 
       {/* Routes */}
-      <div className="px-20 py-5 relative z-10">
+      <div className="md:px-5 lg:px-15 py-5 relative z-10">
 
       <Routes>
         <Route path="/" element={<Home/>} />

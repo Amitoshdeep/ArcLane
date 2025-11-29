@@ -9,7 +9,7 @@ const ICON_SIZE = 20;
 function Navbar() {
 
   return (
-    <nav className='px-20 py-3 sticky top-0
+    <nav className='px-5 md:px-20 py-3 sticky top-0
     flex justify-between items-center bg-black/70 text-white/50
     backdrop-blur-sm z-[999] inset-box-shadow
     '>

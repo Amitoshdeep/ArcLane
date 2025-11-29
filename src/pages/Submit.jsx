@@ -23,7 +23,7 @@ export default function Submit() {
   );
 
   return (
-    <div className="min-h-screen p-10 text-white flex flex-col items-center">
+    <div className="min-h-screen md:p-10 text-white flex flex-col items-center">
 
       {/* Header */}
       <h1 className="text-2xl font-semibold mb-6">

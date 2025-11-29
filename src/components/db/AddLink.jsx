@@ -131,7 +131,7 @@ const AddLink = () => {
   };
 
   return (
-    <div className="w-[60%] mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5 relative">
+    <div className="md:w-[80%] w-full mt-10 bg-black/40 border border-white/15 rounded-2xl p-5 text-white space-y-5 relative">
       <h2 className="text-xl font-semibold mb-2">Add New Link</h2>
 
       {/* Title */}
@@ -146,7 +146,7 @@ const AddLink = () => {
       </div>
 
       {/* Category + Rank */}
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex-1">
           <label className="text-sm text-white/70">Category</label>
           <select
@@ -163,7 +163,7 @@ const AddLink = () => {
           </select>
         </div>
 
-        <div className="w-32">
+        <div className="md:w-32 w-full">
           <label className="text-sm text-white/70">Rank</label>
           <input
             type="number"
@@ -181,9 +181,9 @@ const AddLink = () => {
 
         <div className="space-y-2 mt-1">
           {urls.map((u, i) => (
-            <div key={i} className="flex gap-2">
+            <div key={i} className="flex gap-2 flex-col md:flex-row">
               <input
-                className="w-32 bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none text-sm"
+                className="md:w-32 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none text-sm"
                 value={u.label}
                 onChange={(e) => updateUrlField(i, "label", e.target.value)}
               />
