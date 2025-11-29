@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="w-full py-8 mt-20 border-t border-white/10 text-white/60 relative">
 
-      <div className="max-w-[80%] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="max-w-[80%] mx-auto flex justify-between items-start md:items-center gap-6">
 
         {/* LEFT SECTION */}
         <div className="space-y-1">
