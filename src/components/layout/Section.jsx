@@ -1,19 +1,41 @@
-import { useState } from "react";
+// src/components/layout/Section.jsx
+import React, { useState } from "react";
+import LinkRow from "./LinkRow";
 
-const Section = ({ title, children }) => {
-  const [open, setOpen] = useState(true);
+const ROW_LIMIT = 10; // how many rows before collapsing
+
+const Section = ({ title, items }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const visibleItems = expanded ? items : items.slice(0, ROW_LIMIT);
+  const hiddenCount = items.length - ROW_LIMIT;
 
   return (
-    <div className="mt-6">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between bg-black/50 border border-white/10 px-4 py-2 rounded-lg"
-      >
-        <span className="font-semibold text-white">{title}</span>
-        <span className="text-gray-400 text-sm">{open ? "▾" : "▸"}</span>
-      </button>
+    <div className="bg-black/40 break-inside-avoid border border-white/10 rounded-xl p-4 mb-6">
 
-      {open && <div className="mt-3 space-y-3">{children}</div>}
+      {/* HEADER */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-semibold text-white text-lg">{title}</span>
+      </div>
+
+      {/* ROWS */}
+      <div className="space-y-3">
+        {visibleItems.map((link, i) => (
+          <LinkRow key={link._id} link={link} index={i} />
+        ))}
+      </div>
+
+      {/* SHOW MORE / LESS BUTTON */}
+      {hiddenCount > 0 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full text-center mt-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white/80 hover:bg-white/20 transition"
+        >
+          {expanded
+            ? "Show less ▴"
+            : `Show ${hiddenCount} more ▾`}
+        </button>
+      )}
     </div>
   );
 };

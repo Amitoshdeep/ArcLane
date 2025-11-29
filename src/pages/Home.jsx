@@ -1,45 +1,37 @@
+// src/pages/Home.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Search } from "lucide-react";
 
 import { getCategories } from "@/api/categoryApi";
 import { getLinks } from "@/api/linkApi";
 
-import CategoryBar from "@/components/layout/CategoryBar";
 import Section from "@/components/layout/Section";
-import LinkRow from "@/components/layout/LinkRow";
 
 function Home() {
   const searchRef = useRef(null);
 
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
-
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState([]);
 
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  useEffect(() => {
-    loadLinks();
-  }, [activeCategory, search]);
+  useEffect(() => { loadCategories(); }, []);
+  useEffect(() => { loadLinks(); }, [activeCategory, search]);
 
   const loadCategories = async () => {
     setCategories(await getCategories());
   };
 
   const loadLinks = async () => {
-    setLinks(
-      await getLinks({
-        status: "approved",
-        categoryId: activeCategory || undefined,
-        search: search || undefined,
-      })
-    );
-    console.log("LOADED LINKS:", links);
+    const data = await getLinks({
+      status: "approved",
+      categoryId: activeCategory || undefined,
+      search: search || undefined,
+    });
+    setLinks(data);
   };
 
+  // group by section
   const grouped = links.reduce((acc, link) => {
     const sec = link.section || "General";
     if (!acc[sec]) acc[sec] = [];
@@ -47,10 +39,9 @@ function Home() {
     return acc;
   }, {});
 
-  // search
+  // search (F)
   useEffect(() => {
     const handler = (e) => {
-      // If user is already typing in an input/textarea, ignore
       const tag = e.target.tagName.toLowerCase();
       if (tag === "input" || tag === "textarea") return;
 
@@ -59,7 +50,6 @@ function Home() {
         searchRef.current?.focus();
       }
     };
-
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
@@ -67,9 +57,8 @@ function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center pb-20">
 
-      {/* Search + dropdown */}
+      {/* SEARCH BAR */}
       <div className="flex w-[60%] mt-10 gap-2">
-
         <div className="flex relative w-full">
           <input
             ref={searchRef}
@@ -85,9 +74,7 @@ function Home() {
         <select
           className="outline-0 bg-black px-5 py-2 border-b border-white/20 text-white"
           value={activeCategory || ""}
-          onChange={(e) =>
-            setActiveCategory(e.target.value === "" ? null : e.target.value)
-          }
+          onChange={(e) => setActiveCategory(e.target.value || null)}
         >
           <option value="">Any</option>
           {categories.map((c) => (
@@ -96,25 +83,13 @@ function Home() {
         </select>
       </div>
 
-      {/* Category Pills */}
-      {/* <div className="w-[60%] mt-4">
-        <CategoryBar
-          categories={categories}
-          activeCategoryId={activeCategory}
-          onSelect={setActiveCategory}
-        />
-      </div> */}
-
-      {/* Sections */}
-      <div className="w-[60%] mt-6">
+      {/* TRUE MASONRY GRID */}
+      <div className="w-[80%] mt-8 columns-1 md:columns-2 gap-6 space-y-6">
         {Object.entries(grouped).map(([sec, items]) => (
-          <Section title={sec} key={sec}>
-            {items.map((l, i) => (
-              <LinkRow key={l._id} link={l} index={i} />
-            ))}
-          </Section>
+          <Section key={sec} title={sec} items={items} />
         ))}
       </div>
+
     </div>
   );
 }
