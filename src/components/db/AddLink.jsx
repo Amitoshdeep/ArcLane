@@ -35,9 +35,29 @@ const AddLink = () => {
   // Update URL field
   const updateUrlField = (index, field, value) => {
     const next = [...urls];
-    next[index][field] = value;
+
+    if (field === "link") {
+      next[index][field] = normalizeUrl(value.trim());
+    } else {
+      next[index][field] = value;
+    }
+
     setUrls(next);
   };
+
+  // --- Auto-fix URL helper ---
+  function normalizeUrl(url) {
+    if (!url) return "";
+
+    // If it already starts correctly, return it
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
+    }
+
+    // Otherwise prefix
+    return `https://${url}`;
+  }
+
 
   // Remove mirror
   const removeUrlField = (index) => {
@@ -81,7 +101,10 @@ const AddLink = () => {
 
     const payload = {
       title,
-      urls,
+      urls: urls.map(u => ({
+        label: u.label,
+        link: normalizeUrl(u.link)
+      })),
       categoryId: selectedCategoryId,
       section: section || "General",
       rank: rank ? Number(rank) : 999,
