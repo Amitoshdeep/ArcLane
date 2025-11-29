@@ -15,9 +15,9 @@ function Navbar() {
     '>
 
       <div className='flex gap-2 items-center'>
-        <Menu
+        {/* <Menu
         size={ICON_SIZE-4}
-        className='cursor-pointer duration-300 text-white/50 hover:text-white'/>
+        className='cursor-pointer duration-300 text-white/50 hover:text-white'/> */}
         <NavLink to={"/"} className='text-xl text-[#136013]'>
           ArcLane
         </NavLink>
@@ -26,10 +26,10 @@ function Navbar() {
       <div className='flex items-center gap-5'>
         <Github
           className='cursor-pointer duration-300 text-white/50 hover:text-white'
-          onClick={() => window.open("https://github.com/")}
+          onClick={() => window.open("https://github.com/Amitoshdeep/ArcLane")}
           size={ICON_SIZE}/>
         <Pen
-          onClick={()=> window.open("/dev")}
+          onClick={()=> location.href="/dev"}
           className='cursor-pointer duration-300 text-white/50 hover:text-white'
           size={ICON_SIZE}/>
       </div>
