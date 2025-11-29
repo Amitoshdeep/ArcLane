@@ -2,26 +2,94 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Arclane | Everything You Need</title>
 
-    <!-- Favicon -->
+    <!-- ==== DESCRIPTION & SEO ==== -->
+    <meta
+      name="description"
+      content="Arclane — a fast, clean, community-driven hub of curated links for anime, movies, tools, downloads, streaming, and developer utilities. Ad-free. Beautiful UI."
+    />
+
+    <meta
+      name="keywords"
+      content="arclane, arc-lane, anime streaming, anime download, curated links, torrent websites, tools, movie links, dev utilities, everythingmoe alternative"
+    />
+
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://arc-lane.vercel.app/" />
+
+    <!-- ==== THEME COLOR ==== -->
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- ==== FAVICONS (your files) ==== -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
 
-    <!-- Android Icons -->
+    <!-- Android / PWA -->
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
 
-    <!-- Apple Touch Icon -->
+    <!-- Apple -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Arclane" />
 
+    <!-- ==== OPEN GRAPH / DISCORD EMBEDS ==== -->
+    <meta property="og:title" content="Arclane | Everything You Need" />
+    <meta property="og:site_name" content="Arclane" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arc-lane.vercel.app/" />
+    <meta
+      property="og:description"
+      content="A curated, community-driven directory for anime, streaming, downloads, developer tools, and essential websites. Clean UI. Zero ads."
+    />
+    <meta property="og:image" content="https://arc-lane.vercel.app/preview.png" />
+
+    <!-- ==== TWITTER ==== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Arclane | Everything You Need" />
+    <meta
+      name="twitter:description"
+      content="A beautiful, curated hub of useful links for streaming, downloads, anime, tools, and more."
+    />
+    <meta name="twitter:image" content="https://arc-lane.vercel.app/preview.png" />
+
+    <!-- ==== STRUCTURED DATA (SEO BOOST) ==== -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Arclane",
+        "url": "https://arc-lane.vercel.app/",
+        "description": "Community-curated hub for anime, movies, downloads, streaming, and tools.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Arclane",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://arc-lane.vercel.app/logo.png"
+          }
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://arc-lane.vercel.app/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
+    <!-- ==== FONTS (your previous setup) ==== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
