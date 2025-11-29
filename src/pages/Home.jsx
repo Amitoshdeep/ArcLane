@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Search } from "lucide-react";
 
@@ -7,13 +6,11 @@ import { getLinks } from "api/linkApi";
 
 import Section from "components/layout/Section";
 import SectionSkeleton from "components/layout/SectionSkeleton";
-import LinkRowSkeleton from "components/layout/LinkRowSkeleton";
 
 function Home() {
-  const [loading, setLoading] = useState(true);
-
   const searchRef = useRef(null);
 
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [search, setSearch] = useState("");
@@ -37,34 +34,28 @@ function Home() {
     setLoading(false);
   };
 
-  // group by section
-  const grouped = links.reduce((acc, link) => {
-    const sec = link.section || "General";
-    if (!acc[sec]) acc[sec] = [];
-    acc[sec].push(link);
-    return acc;
-  }, {});
+  // GROUP BY SECTION
+  const grouped = Object.entries(
+    links.reduce((acc, link) => {
+      const sec = link.section || "General";
+      if (!acc[sec]) acc[sec] = [];
+      acc[sec].push(link);
+      return acc;
+    }, {})
+  );
 
-  // search (F)
-  useEffect(() => {
-    const handler = (e) => {
-      const tag = e.target.tagName.toLowerCase();
-      if (tag === "input" || tag === "textarea") return;
-
-      if (e.key.toLowerCase() === "f") {
-        e.preventDefault();
-        searchRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
+  // SPLIT INTO 2 COLUMNS (real masonry)
+  const col1 = [];
+  const col2 = [];
+  grouped.forEach((entry, idx) => {
+    (idx % 2 === 0 ? col1 : col2).push(entry);
+  });
 
   return (
     <div className="min-h-screen flex flex-col items-center pb-20">
 
       {/* SEARCH BAR */}
-      <div className="flex w-full md:w-[60%] px-5 md:px-0 mt-10 gap-2">
+      <div className="flex w-full md:w-[80%] px-5 md:px-0 mt-10 gap-2">
         <div className="flex relative w-full">
           <input
             ref={searchRef}
@@ -74,7 +65,10 @@ function Home() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70" size={20} />
+          <Search
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70"
+            size={20}
+          />
         </div>
 
         <select
@@ -89,18 +83,29 @@ function Home() {
         </select>
       </div>
 
-      {/* TRUE MASONRY GRID */}
-      <div className="w-[96%] md:w-[80%] mt-8 columns-1 md:columns-2 gap-6 space-y-6">
-      {loading ? (
-        <>
-          <SectionSkeleton />
-          <SectionSkeleton />
-        </>
-      ) : (
-        Object.entries(grouped).map(([sec, items]) => (
-          <Section key={sec} title={sec} items={items} />
-        ))
-      )}
+      {/* 2-COLUMN EXACT MASONRY */}
+      <div className="w-full md:w-[80%] mt-8 flex gap-6 px-5 md:px-0">
+
+        {/* Column 1 */}
+        <div className="flex-1 space-y-6">
+          {loading
+            ? <SectionSkeleton />
+            : col1.map(([sec, items]) => (
+                <Section key={sec} title={sec} items={items} />
+              ))
+          }
+        </div>
+
+        {/* Column 2 */}
+        <div className="hidden md:flex flex-1 flex-col space-y-6">
+          {loading
+            ? <SectionSkeleton />
+            : col2.map(([sec, items]) => (
+                <Section key={sec} title={sec} items={items} />
+              ))
+          }
+        </div>
+
       </div>
 
     </div>
