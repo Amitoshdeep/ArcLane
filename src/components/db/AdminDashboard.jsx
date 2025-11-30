@@ -164,10 +164,10 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex gap-4 min-h-[70vh]">
+    <div className="flex flex-col md:flex-row gap-4 min-h-[70vh]">
 
       {/* SIDEBAR */}
-      <aside className="hidden md:flex flex-col w-64 bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-xl">
+      <aside className="flex flex-col md:w-64 bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-xl">
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-white">ArcLane Admin</h2>
           <p className="text-xs text-white/50">
