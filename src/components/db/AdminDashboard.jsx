@@ -605,7 +605,8 @@ const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handl
           <div className="mb-3">
             <label className="block text-xs text-white/60 mb-1">Description</label>
             <textarea
-              className="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm"
+              rows={8}
+              className="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm hide-scrollbar"
               value={editItem.description || ""}
               onChange={(e) =>
                 setEditItem({ ...editItem, description: e.target.value })

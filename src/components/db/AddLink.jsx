@@ -251,8 +251,8 @@ const AddLink = () => {
       <div>
         <label className="text-sm text-white/70">Description</label>
         <textarea
-          rows={3}
-          className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none text-sm"
+          rows={8}
+          className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none text-sm hide-scrollbar"
           placeholder="+ Largest anime library&#10;+ Modern UI&#10;- Occasional popups"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
