@@ -150,7 +150,7 @@ const AddLink = () => {
         <div className="flex-1">
           <label className="text-sm text-white/70">Category</label>
           <select
-            className="mt-1 w-full bg-black/40 border border-white/15 rounded-lg px-3 py-2 outline-none"
+            className="mt-1 w-full bg-black border border-white/15 rounded-lg px-3 py-2 outline-none"
             value={selectedCategoryId}
             onChange={(e) => setSelectedCategoryId(e.target.value)}
           >
