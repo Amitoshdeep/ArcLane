@@ -3,36 +3,44 @@ import axios from "axios";
 const BASE = "https://arclane-production.up.railway.app/api/categories";
 
 // --------------------
-// PUBLIC — Only approved categories for dropdown
+// PUBLIC — Approved categories
 // --------------------
 export const getCategories = async () => {
   return (await axios.get(BASE)).data;
 };
 
 // --------------------
-// PUBLIC — Add category (goes pending)
+// PUBLIC — Add new category
 // --------------------
 export const addCategory = async (data) => {
   return (await axios.post(BASE, data)).data;
 };
 
 // --------------------
-// ADMIN — Get pending categories
+// ADMIN — Pending
 // --------------------
 export const getPendingCategories = async () => {
-  return (await axios.get(`${BASE}/pending`)).data;
+  return (
+    await axios.get(`${BASE}/pending`, {
+      withCredentials: true,
+    })
+  ).data;
 };
 
 // --------------------
-// ADMIN — Approve category
+// ADMIN — Approve
 // --------------------
 export const approveCategory = async (id) => {
-  return (await axios.post(`${BASE}/approve/${id}`)).data;
+  return (
+    await axios.post(`${BASE}/approve/${id}`, {}, { withCredentials: true })
+  ).data;
 };
 
 // --------------------
-// ADMIN — Reject category
+// ADMIN — Reject
 // --------------------
 export const rejectCategory = async (id) => {
-  return (await axios.post(`${BASE}/reject/${id}`)).data;
+  return (
+    await axios.post(`${BASE}/reject/${id}`, {}, { withCredentials: true })
+  ).data;
 };

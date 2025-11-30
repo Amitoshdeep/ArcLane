@@ -1,8 +1,12 @@
 import express from "express";
 import Link from "../models/Link.js";
+import { verifyAdmin } from "../middlewares/verifyAdmin.js";
 
 const router = express.Router();
 
+/* -----------------------------------
+   PUBLIC: Add a link (SUBMIT page)
+----------------------------------- */
 router.post("/", async (req, res) => {
   try {
     const link = await Link.create(req.body);
@@ -12,8 +16,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+/* -----------------------------------
+   PUBLIC: Get approved links only
+   ADMIN:  Get pending/rejected
+----------------------------------- */
 router.get("/", async (req, res) => {
   const { categoryId, search, status = "approved" } = req.query;
+
+  // 🛡 If user wants pending links → admin only
+  if (status !== "approved") {
+    const cookie = req.headers.cookie || "";
+    if (!cookie.includes("admin_session=yes")) {
+      return res.status(401).json({ error: "Not authorized" });
+    }
+  }
 
   let filter = { status };
 
@@ -22,7 +38,7 @@ router.get("/", async (req, res) => {
     filter.$or = [
       { title: new RegExp(search, "i") },
       { description: new RegExp(search, "i") },
-      { tags: new RegExp(search, "i") }
+      { tags: new RegExp(search, "i") },
     ];
   }
 
@@ -33,16 +49,28 @@ router.get("/", async (req, res) => {
   res.json(links);
 });
 
-router.patch("/:id/approve", async (req, res) => {
-  res.json(
-    await Link.findByIdAndUpdate(req.params.id, { status: "approved" }, { new: true })
+/* -----------------------------------
+   ADMIN ONLY: Approve a link
+----------------------------------- */
+router.patch("/:id/approve", verifyAdmin, async (req, res) => {
+  const updated = await Link.findByIdAndUpdate(
+    req.params.id,
+    { status: "approved" },
+    { new: true }
   );
+  res.json(updated);
 });
 
-router.patch("/:id/reject", async (req, res) => {
-  res.json(
-    await Link.findByIdAndUpdate(req.params.id, { status: "rejected" }, { new: true })
+/* -----------------------------------
+   ADMIN ONLY: Reject a link
+----------------------------------- */
+router.patch("/:id/reject", verifyAdmin, async (req, res) => {
+  const updated = await Link.findByIdAndUpdate(
+    req.params.id,
+    { status: "rejected" },
+    { new: true }
   );
+  res.json(updated);
 });
 
 export default router;
