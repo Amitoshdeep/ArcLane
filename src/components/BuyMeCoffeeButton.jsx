@@ -18,7 +18,7 @@ function BuyMeCoffeeButton() {
         flex items-center justify-center
       "
     >
-      <Coffee size={16} />
+      <Coffee size={20} />
     </a>
   );
 }
