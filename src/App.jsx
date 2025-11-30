@@ -17,6 +17,20 @@ import ScrollTopButton from 'components/layout/ScrollTopButton'
 import BuyMeCoffeeButton from 'components/ui/BuyMeCoffeeButton';
 
 function App() {
+
+  useEffect(() => {
+    console.log(
+      "%c\n" +
+      "░█████╗░██████╗░░█████╗░    ██╗░░░░░░█████╗░███╗░░██╗███████╗\n" +
+      "██╔══██╗██╔══██╗██╔══██╗    ██║░░░░░██╔══██╗████╗░██║██╔════╝\n" +
+      "███████║██████╔╝██║░░╚═╝    ██║░░░░░███████║██╔██╗██║█████╗░░\n" +
+      "██╔══██║██╔══██╗██║░░██╗    ██║░░░░░██╔══██║██║╚████║██╔══╝░░\n" +
+      "██║░░██║██║░░██║╚█████╔╝    ███████╗██║░░██║██║░╚███║███████╗\n" +
+      "╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░    ╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝\n",
+      "color:#10B981; font-size:10px; font-weight:bold;"
+    );
+  }, []);
+
   useEffect(() => {
     const handle = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "q") {
