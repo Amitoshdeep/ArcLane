@@ -12,6 +12,7 @@ import About from "pages/About";
 import Disclaimer from "pages/Disclaimer";
 import Footer from 'components/layout/Footer'
 import ScrollTopButton from 'components/layout/ScrollTopButton'
+import BuyMeCoffeeButton from './components/BuyMeCoffeeButton';
 
 function App() {
 
@@ -84,6 +85,7 @@ function App() {
       </Routes>
       </div>
 
+        <BuyMeCoffeeButton/>
       <Footer/>
     </div>
   )
