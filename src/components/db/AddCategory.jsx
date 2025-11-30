@@ -4,9 +4,13 @@ import { addCategory } from "@/api/categoryApi";
 const AddCategory = () => {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
+    if (submitting) return;                 // ⛔ prevents multiple clicks
     if (!name.trim()) return alert("Category name required");
+
+    setSubmitting(true);                    // 🔒 lock button
 
     try {
       await addCategory({
@@ -21,6 +25,8 @@ const AddCategory = () => {
     } catch (err) {
       console.error(err);
       alert("Error adding category");
+    } finally {
+      setSubmitting(false);                 // 🔓 unlock button
     }
   };
 
@@ -54,9 +60,12 @@ const AddCategory = () => {
 
       <button
         onClick={handleSubmit}
-        className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 font-semibold"
+        disabled={submitting}
+        className={`px-4 py-2 rounded bg-blue-600 ${
+          submitting ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
-        Submit Category (Pending)
+        {submitting ? "Submitting..." : "Add Category"}
       </button>
     </div>
   );

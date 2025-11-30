@@ -8,6 +8,7 @@ import {
 } from "@/utils/linkHelpers";
 
 const AddLink = () => {
+  const [submitting, setSubmitting] = useState(false);
   const [categories, setCategories] = useState([]);
 
   // Form State
@@ -90,9 +91,12 @@ const AddLink = () => {
 
   // Submit
   const handleSubmit = async () => {
+    if (submitting) return; // ⛔ prevents double click
     if (!title) return alert("Title required");
     if (!selectedCategoryId) return alert("Choose a category");
     if (!urls[0].link) return alert("At least one URL required");
+
+    setSubmitting(true); // 🔒 lock button
 
     const finalTags = tagsInput
       .split(",")
@@ -127,6 +131,8 @@ const AddLink = () => {
     } catch (err) {
       console.error(err);
       alert("Error adding link");
+    } finally {
+      setSubmitting(false); // 🔓 unlock button
     }
   };
 
@@ -256,9 +262,12 @@ const AddLink = () => {
       {/* Submit */}
       <button
         onClick={handleSubmit}
-        className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 font-semibold"
+        disabled={submitting}
+        className={`w-full py-2.5 rounded-lg font-semibold transition
+          ${submitting ? "bg-emerald-800 cursor-not-allowed opacity-60" : "bg-emerald-600 hover:bg-emerald-700"}
+        `}
       >
-        Save Link (Pending)
+        {submitting ? "Saving…" : "Save Link"}
       </button>
     </div>
   );
