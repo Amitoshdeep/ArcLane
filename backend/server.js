@@ -11,7 +11,10 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: ["https://arc-lane.vercel.app"],  // your frontend domain
+  origin: [
+    "http://localhost:5173",
+    "https://arc-lane.vercel.app"
+  ],
   credentials: true
 }));
 
