@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react'
+import React , {useEffect, useState} from 'react'
 import {  Routes ,Route, Navigate } from 'react-router-dom'
 import axios from "axios";
 
@@ -14,10 +14,9 @@ import About from "pages/About";
 import Disclaimer from "pages/Disclaimer";
 import Footer from 'components/layout/Footer'
 import ScrollTopButton from 'components/layout/ScrollTopButton'
-import BuyMeCoffeeButton from 'components/BuyMeCoffeeButton';
+import BuyMeCoffeeButton from 'components/ui/BuyMeCoffeeButton';
 
 function App() {
-
   useEffect(() => {
     const handle = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "q") {
@@ -48,7 +47,6 @@ function App() {
     // if admin → show page
     return allowed ? children : <Navigate to="/admin-login" />;
   };
-
 
   return (
     <div className='font-Poppins cursor-default text-white bg-black
@@ -93,7 +91,6 @@ function App() {
         theme="dark"
         pauseOnHover
       />
-
       <BuyMeCoffeeButton/>
       <Footer/>
     </div>

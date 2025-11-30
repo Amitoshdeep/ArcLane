@@ -6,8 +6,11 @@ import { getLinks } from "api/linkApi";
 
 import Section from "components/layout/Section";
 import SectionSkeleton from "components/layout/SectionSkeleton";
+import ShortcutModal from "components/ui/ShortcutModal";
 
 function Home() {
+  const [showShortcuts, setShowShortcuts] = useState(false);
+
   const searchRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
@@ -62,6 +65,71 @@ function Home() {
     )
     .join("") || "";
 
+  // Focus search input when pressing "F" (not in input fields)
+  useEffect(() => {
+    const handler = (e) => {
+      const isInput =
+        document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA";
+
+      // ---------- Open Shortcuts Modal (Shift + / = ?)
+      if (e.shiftKey && e.key === "/") {
+        e.preventDefault();
+        setShowShortcuts(true);
+        return;
+      }
+
+      // ---------- Close modal with ESC
+      if (e.key === "Escape" && showShortcuts) {
+        setShowShortcuts(false);
+        return;
+      }
+
+      // ---------- ESC clears search IF search is focused
+      if (e.key === "Escape" && document.activeElement === searchRef.current) {
+        setSearch("");
+        searchRef.current.blur();
+        return;
+      }
+
+      // =====================================
+      // SHORTCUTS BELOW ONLY WORK OUTSIDE INPUTS
+      // =====================================
+      if (isInput) return;
+
+      // ---------- F → focus search
+      if (e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        searchRef.current?.focus();
+        return;
+      }
+
+      // ---------- / → focus search (GitHub)
+      if (e.key === "/") {
+        e.preventDefault();
+        searchRef.current?.focus();
+        return;
+      }
+
+      // ---------- Alt + ↑ / ↓ → category cycle
+      if (e.altKey && categories.length > 0) {
+        const index = categories.findIndex((c) => c._id === activeCategory);
+
+        if (e.key === "ArrowUp") {
+          const prev = index <= 0 ? categories.length - 1 : index - 1;
+          setActiveCategory(categories[prev]._id);
+        }
+
+        if (e.key === "ArrowDown") {
+          const next = index >= categories.length - 1 ? 0 : index + 1;
+          setActiveCategory(categories[next]._id);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [showShortcuts, activeCategory, categories, searchRef, setSearch]);
 
   return (
     <div className="min-h-screen flex flex-col items-center pb-20">
@@ -133,7 +201,7 @@ function Home() {
         </div>
 
       </div>
-
+      <ShortcutModal open={showShortcuts} onClose={() => setShowShortcuts(false)} />
     </div>
   );
 }
