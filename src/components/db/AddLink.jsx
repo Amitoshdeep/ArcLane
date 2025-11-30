@@ -34,16 +34,10 @@ const AddLink = () => {
     setUrls([...urls, { label: `Mirror ${urls.length}`, link: "" }]);
   };
 
-  // Update URL field
+  // Update URL field (raw typing allowed)
   const updateUrlField = (index, field, value) => {
     const next = [...urls];
-
-    if (field === "link") {
-      next[index][field] = normalizeUrl(value.trim());
-    } else {
-      next[index][field] = value;
-    }
-
+    next[index][field] = value;   // <-- NO auto https here
     setUrls(next);
   };
 
@@ -51,14 +45,13 @@ const AddLink = () => {
   function normalizeUrl(url) {
     if (!url) return "";
 
-    // If it already starts correctly, return it
-    if (url.startsWith("http://") || url.startsWith("https://")) {
+    // Allow both http:// and https://
+    if (/^https?:\/\//i.test(url)) {
       return url;
     }
 
-    // Otherwise prefix
-    return `https://${url}`;
-  }
+    return "https://" + url;
+    }
 
 
   // Remove mirror
@@ -200,6 +193,11 @@ const AddLink = () => {
                 placeholder="https://…"
                 value={u.link}
                 onChange={(e) => updateUrlField(i, "link", e.target.value)}
+                onBlur={(e) => {
+                  // Normalize ONLY when user stops typing
+                  const fixed = normalizeUrl(e.target.value.trim());
+                  updateUrlField(i, "link", fixed);
+                }}
               />
               {i !== 0 && (
                 <button
