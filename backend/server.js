@@ -18,6 +18,8 @@ app.use(cors({
   credentials: true
 }));
 
+app.set("trust proxy", 1); // Railway needs this
+
 app.use(express.json());
 
 // connect db
