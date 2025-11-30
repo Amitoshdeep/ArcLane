@@ -227,6 +227,7 @@ const AdminDashboard = () => {
       } else {
         await adminUpdateLink(editItem._id, {
           title: editItem.title,
+          urls: editItem.urls,
           section: editItem.section,
           rank: editItem.rank,
           description: editItem.description,
@@ -441,6 +442,22 @@ const LinkTable = ({ items, onEdit, onApprove, onReject, onDelete }) => (
         <div className="flex justify-between">
           <div>
             <div className="font-medium">{l.title}</div>
+            {l.urls && l.urls.length > 0 && (
+            <div className="mt-1 space-y-1">
+              {l.urls.map((u, index) => (
+                <div key={index} className="flex items-center gap-2 text-[11px]">
+                  <span className="text-white/50">{u.label}:</span>
+                  <a
+                    href={u.link}
+                    target="_blank"
+                    className="text-emerald-300 underline break-all"
+                  >
+                    {u.link}
+                  </a>
+                </div>
+              ))}
+            </div>
+          )}
             <div className="text-[11px] text-white/50">
               section: {l.section} — rank: {l.rank ?? 999}
             </div>
@@ -498,6 +515,61 @@ const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handl
             value={editItem.title}
             onChange={(v) => setEditItem({ ...editItem, title: v })}
           />
+          {/* URL LIST */}
+          <div className="mb-3">
+            <label className="block text-xs text-white/60 mb-1">URLs</label>
+
+            <div className="space-y-2">
+              {editItem.urls?.map((u, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <input
+                    className="flex w-15 md:w-25 bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
+                    placeholder="Label"
+                    value={u.label}
+                    onChange={(e) => {
+                      const copy = [...editItem.urls];
+                      copy[idx].label = e.target.value;
+                      setEditItem({ ...editItem, urls: copy });
+                    }}
+                  />
+
+                  <input
+                    className="flex w-full bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
+                    placeholder="https://..."
+                    value={u.link}
+                    onChange={(e) => {
+                      const copy = [...editItem.urls];
+                      copy[idx].link = e.target.value;
+                      setEditItem({ ...editItem, urls: copy });
+                    }}
+                  />
+
+                  <button
+                    onClick={() => {
+                      const filtered = editItem.urls.filter((_, i) => i !== idx);
+                      setEditItem({ ...editItem, urls: filtered });
+                    }}
+                    className="px-2 py-1 text-xs bg-red-700/40 border border-red-800 rounded-lg"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* ADD URL BUTTON */}
+            <button
+              onClick={() =>
+                setEditItem({
+                  ...editItem,
+                  urls: [...(editItem.urls || []), { label: "", link: "" }],
+                })
+              }
+              className="mt-2 px-3 py-1.5 text-xs bg-white/10 border border-white/20 rounded-lg"
+            >
+              + Add URL
+            </button>
+          </div>
 
           <FormInput
             label="Section"
