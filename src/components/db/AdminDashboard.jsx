@@ -97,6 +97,87 @@ const AdminDashboard = () => {
     return activeList.slice(start, start + itemsPerPage);
   }, [activeList, page, itemsPerPage]);
 
+  // New Pagination Logic
+  const Pagination = ({ page, totalPages, setPage }) => {
+    if (totalPages <= 1) return null;
+
+    const pagesToShow = [];
+
+    // SHOW: first, current-1, current, current+1, last
+    for (let p = 1; p <= totalPages; p++) {
+      if (
+        p === 1 ||
+        p === totalPages ||
+        Math.abs(p - (page + 1)) <= 1
+      ) {
+        pagesToShow.push(p);
+      } else if (
+        Math.abs(p - (page + 1)) === 2
+      ) {
+        pagesToShow.push("...");
+      }
+    }
+
+    const uniquePages = pagesToShow.filter(
+      (v, i, arr) => arr.indexOf(v) === i
+    );
+
+    return (
+      <div className="flex justify-center items-center gap-2 mt-6 text-sm">
+
+        {/* PREV */}
+        <button
+          onClick={() => page > 0 && setPage(page - 1)}
+          className={`px-3 py-1.5 rounded-lg border ${
+            page === 0
+              ? "opacity-40 cursor-not-allowed bg-white/5 border-white/10"
+              : "bg-white/5 border-white/10 hover:bg-white/10"
+          }`}
+        >
+          ← Prev
+        </button>
+
+        {/* PAGES */}
+        {uniquePages.map((p, idx) =>
+          p === "..." ? (
+            <div
+              key={idx}
+              className="px-2 py-1 text-white/40"
+            >
+              ...
+            </div>
+          ) : (
+            <button
+              key={p}
+              onClick={() => setPage(p - 1)}
+              className={`px-3 py-1.5 rounded-lg border ${
+                page + 1 === p
+                  ? "bg-emerald-500 text-black border-emerald-400"
+                  : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10"
+              }`}
+            >
+              {p}
+            </button>
+          )
+        )}
+
+        {/* NEXT */}
+        <button
+          onClick={() => page < totalPages - 1 && setPage(page + 1)}
+          className={`px-3 py-1.5 rounded-lg border ${
+            page === totalPages - 1
+              ? "opacity-40 cursor-not-allowed bg-white/5 border-white/10"
+              : "bg-white/5 border-white/10 hover:bg-white/10"
+          }`}
+        >
+          Next →
+        </button>
+
+      </div>
+    );
+  };
+
+
   // CATEGORY ACTIONS
   const handleApproveCategory = async (id) => {
     await adminApproveCategory(id);
@@ -267,25 +348,12 @@ const AdminDashboard = () => {
         )}
 
         {/* PAGINATION */}
-        {pageCount > 1 && (
-          <div className="mt-6 flex justify-center">
-            <ReactPaginate
-              previousLabel="← Prev"
-              nextLabel="Next →"
-              breakLabel="..."
-              pageCount={pageCount}
-              marginPagesDisplayed={1}
-              pageRangeDisplayed={2}
-              onPageChange={(e) => setPage(e.selected)}
-              containerClassName="flex items-center gap-2"
-              pageClassName="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:bg-white/10"
-              activeClassName="!bg-emerald-500 !text-black border-emerald-400"
-              previousClassName="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:bg-white/10"
-              nextClassName="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:bg-white/10"
-              breakClassName="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/70"
-            />
-          </div>
-        )}
+        <Pagination
+          page={page}
+          totalPages={pageCount}
+          setPage={setPage}
+        />
+
       </main>
 
       {/* EDIT MODAL */}
