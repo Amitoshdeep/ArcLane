@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const BASE = "https://arclane-production.up.railway.app/api/links";
+import { API } from "./client";
 
 // --------------------
 // PUBLIC — Get approved links
@@ -12,11 +10,7 @@ export const getLinks = async ({ status, categoryId, search } = {}) => {
   if (categoryId) params.categoryId = categoryId;
   if (search) params.search = search;
 
-  const res = await axios.get(BASE, {
-    params,
-    withCredentials: true, // needed if admin fetches pending
-  });
-
+  const res = await API.get("/links", { params });
   return res.data;
 };
 
@@ -24,27 +18,22 @@ export const getLinks = async ({ status, categoryId, search } = {}) => {
 // PUBLIC — Add a link
 // --------------------
 export const addLink = async (payload) => {
-  const res = await axios.post(BASE, payload);
+  const res = await API.post("/links", payload);
   return res.data;
 };
 
 // --------------------
-// ADMIN — Approve/Reject
+// ADMIN — Approve
 // --------------------
 export const approveLink = async (id) => {
-  const res = await axios.patch(
-    `${BASE}/${id}/approve`,
-    {},
-    { withCredentials: true }
-  );
+  const res = await API.patch(`/links/${id}/approve`);
   return res.data;
 };
 
+// --------------------
+// ADMIN — Reject
+// --------------------
 export const rejectLink = async (id) => {
-  const res = await axios.patch(
-    `${BASE}/${id}/reject`,
-    {},
-    { withCredentials: true }
-  );
+  const res = await API.patch(`/links/${id}/reject`);
   return res.data;
 };

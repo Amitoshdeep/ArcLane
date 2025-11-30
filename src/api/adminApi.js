@@ -1,24 +1,27 @@
-import axios from "axios";
+import { API } from "./client";
 
-const API = "https://arclane-production.up.railway.app/api/links";
-
+// --------------------
+// ADMIN — Get pending links
+// --------------------
 export const getPendingLinks = async () => {
-  const res = await axios.get(API + "?status=pending", {
-    withCredentials: true,
+  const res = await API.get("/links", {
+    params: { status: "pending" }
   });
   return res.data;
 };
 
+// --------------------
+// ADMIN — Approve link
+// --------------------
 export const approveLink = async (id) => {
-  const res = await axios.patch(`${API}/${id}/approve`, {}, {
-    withCredentials: true,
-  });
+  const res = await API.patch(`/links/${id}/approve`);
   return res.data;
 };
 
+// --------------------
+// ADMIN — Reject link
+// --------------------
 export const rejectLink = async (id) => {
-  const res = await axios.patch(`${API}/${id}/reject`, {}, {
-    withCredentials: true,
-  });
+  const res = await API.patch(`/links/${id}/reject`);
   return res.data;
 };
