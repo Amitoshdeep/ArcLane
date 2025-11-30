@@ -15,6 +15,14 @@ import {
   adminUpdateLink,
 } from "@/api/adminApi";
 
+const normalizeUrl = (url) => {
+  if (!url) return "";
+  // If it starts with http:// or https:// already → return as-is
+  if (/^https?:\/\//i.test(url)) return url;
+  return "https://" + url;
+};
+
+
 const STATUS_FILTERS = ["all", "pending", "approved", "rejected"];
 
 const AdminDashboard = () => {
@@ -522,38 +530,48 @@ const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handl
             <div className="space-y-2">
               {editItem.urls?.map((u, idx) => (
                 <div key={idx} className="flex gap-2">
-                  <input
-                    className="flex w-15 md:w-25 bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
-                    placeholder="Label"
-                    value={u.label}
-                    onChange={(e) => {
-                      const copy = [...editItem.urls];
-                      copy[idx].label = e.target.value;
-                      setEditItem({ ...editItem, urls: copy });
-                    }}
-                  />
+                {/* LABEL */}
+                <input
+                  className="flex w-15 md:w-25 bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
+                  placeholder="Label"
+                  value={u.label}
+                  onChange={(e) => {
+                    const copy = [...editItem.urls];
+                    copy[idx].label = e.target.value;
+                    setEditItem({ ...editItem, urls: copy });
+                  }}
+                />
 
-                  <input
-                    className="flex w-full bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
-                    placeholder="https://..."
-                    value={u.link}
-                    onChange={(e) => {
-                      const copy = [...editItem.urls];
-                      copy[idx].link = e.target.value;
-                      setEditItem({ ...editItem, urls: copy });
-                    }}
-                  />
+                {/* LINK */}
+                <input
+                  className="flex w-full bg-white/5 border border-white/20 rounded-lg px-2 py-1 text-xs"
+                  placeholder="https://..."
+                  value={u.link}
+                  onChange={(e) => {
+                    // JUST UPDATE RAW TEXT
+                    const copy = [...editItem.urls];
+                    copy[idx].link = e.target.value;
+                    setEditItem({ ...editItem, urls: copy });
+                  }}
+                  onBlur={(e) => {
+                    // AUTO-NORMALIZE ONLY WHEN USER FINISHES TYPING
+                    const copy = [...editItem.urls];
+                    copy[idx].link = normalizeUrl(copy[idx].link);
+                    setEditItem({ ...editItem, urls: copy });
+                  }}
+                />
 
-                  <button
-                    onClick={() => {
-                      const filtered = editItem.urls.filter((_, i) => i !== idx);
-                      setEditItem({ ...editItem, urls: filtered });
-                    }}
-                    className="px-2 py-1 text-xs bg-red-700/40 border border-red-800 rounded-lg"
-                  >
-                    ✕
-                  </button>
-                </div>
+                {/* DELETE URL */}
+                <button
+                  onClick={() => {
+                    const filtered = editItem.urls.filter((_, i) => i !== idx);
+                    setEditItem({ ...editItem, urls: filtered });
+                  }}
+                  className="px-2 py-1 text-xs bg-red-700/40 border border-red-800 rounded-lg"
+                >
+                  ✕
+                </button>
+              </div>
               ))}
             </div>
 
