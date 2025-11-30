@@ -1,5 +1,6 @@
 // src/components/db/AddLink.jsx
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getCategories } from "@/api/categoryApi";
 import { addLink } from "@/api/linkApi";
 import {
@@ -91,12 +92,12 @@ const AddLink = () => {
 
   // Submit
   const handleSubmit = async () => {
-    if (submitting) return; // ⛔ prevents double click
-    if (!title) return alert("Title required");
-    if (!selectedCategoryId) return alert("Choose a category");
-    if (!urls[0].link) return alert("At least one URL required");
+    if (submitting) return;
+    if (!title) return toast.error("Title required");
+    if (!selectedCategoryId) return toast.error("Choose a category");
+    if (!urls[0].link) return toast.error("At least one URL required");
 
-    setSubmitting(true); // 🔒 lock button
+    setSubmitting(true);
 
     const finalTags = tagsInput
       .split(",")
@@ -119,9 +120,10 @@ const AddLink = () => {
 
     try {
       await addLink(payload);
-      alert("Link added (pending)!");
 
-      // Reset
+      toast.success("Link submitted for approval!");
+
+      // Reset form
       setTitle("");
       setUrls([{ label: "Main", link: "" }]);
       setSection("");
@@ -130,9 +132,9 @@ const AddLink = () => {
       setRank("");
     } catch (err) {
       console.error(err);
-      alert("Error adding link");
+      toast.error("Error adding link");
     } finally {
-      setSubmitting(false); // 🔓 unlock button
+      setSubmitting(false);
     }
   };
 
@@ -263,9 +265,11 @@ const AddLink = () => {
       <button
         onClick={handleSubmit}
         disabled={submitting}
-        className={`w-full py-2.5 rounded-lg font-semibold transition
-          ${submitting ? "bg-emerald-800 cursor-not-allowed opacity-60" : "bg-emerald-600 hover:bg-emerald-700"}
-        `}
+        className={`w-full py-2.5 rounded-lg font-semibold transition ${
+          submitting
+            ? "bg-emerald-800 cursor-not-allowed opacity-60"
+            : "bg-emerald-600 hover:bg-emerald-700"
+        }`}
       >
         {submitting ? "Saving…" : "Save Link"}
       </button>

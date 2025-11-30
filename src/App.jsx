@@ -2,6 +2,8 @@ import React , {useEffect} from 'react'
 import {  Routes ,Route, Navigate } from 'react-router-dom'
 import axios from "axios";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from 'components/layout/Navbar'
 import ScrollToTop from 'components/layout/ScrollToTop'
 import Home from 'pages/Home'
@@ -12,7 +14,7 @@ import About from "pages/About";
 import Disclaimer from "pages/Disclaimer";
 import Footer from 'components/layout/Footer'
 import ScrollTopButton from 'components/layout/ScrollTopButton'
-import BuyMeCoffeeButton from './components/BuyMeCoffeeButton';
+import BuyMeCoffeeButton from 'components/BuyMeCoffeeButton';
 
 function App() {
 
@@ -85,7 +87,14 @@ function App() {
       </Routes>
       </div>
 
-        <BuyMeCoffeeButton/>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        theme="dark"
+        pauseOnHover
+      />
+
+      <BuyMeCoffeeButton/>
       <Footer/>
     </div>
   )

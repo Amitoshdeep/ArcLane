@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { addCategory } from "@/api/categoryApi";
 
 const AddCategory = () => {
@@ -7,26 +8,31 @@ const AddCategory = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (submitting) return;                 // ⛔ prevents multiple clicks
-    if (!name.trim()) return alert("Category name required");
+    if (submitting) return; // ⛔ prevents double click
 
-    setSubmitting(true);                    // 🔒 lock button
+    if (!name.trim()) {
+      toast.error("Category name required");
+      return;
+    }
+
+    setSubmitting(true); // 🔒 lock button
 
     try {
       await addCategory({
         name: name.trim(),
-        icon: icon.trim() || "📁"
+        icon: icon.trim() || "📁",
       });
 
-      alert("Category submitted for approval!");
+      toast.success("Category submitted for approval!");
 
+      // Reset fields
       setName("");
       setIcon("");
     } catch (err) {
       console.error(err);
-      alert("Error adding category");
+      toast.error("Error adding category");
     } finally {
-      setSubmitting(false);                 // 🔓 unlock button
+      setSubmitting(false); // 🔓 unlock button
     }
   };
 
@@ -61,8 +67,10 @@ const AddCategory = () => {
       <button
         onClick={handleSubmit}
         disabled={submitting}
-        className={`px-4 py-2 rounded bg-blue-600 ${
-          submitting ? "opacity-50 cursor-not-allowed" : ""
+        className={`px-4 py-2 rounded font-semibold transition ${
+          submitting
+            ? "bg-blue-800 opacity-60 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700"
         }`}
       >
         {submitting ? "Submitting..." : "Add Category"}
