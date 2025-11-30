@@ -11,3 +11,18 @@
 .inset-box-shadow{
   box-shadow: inset 0 -12px 12px -20px rgb(255, 255, 255, 0.5);
 }
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-popup {
+  animation: popup 0.18s ease-out;
+}
