@@ -15,6 +15,7 @@ import Disclaimer from "pages/Disclaimer";
 import Footer from 'components/layout/Footer'
 import ScrollTopButton from 'components/layout/ScrollTopButton'
 import BuyMeCoffeeButton from 'components/ui/BuyMeCoffeeButton';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path='*' element={<NotFound/>} />
         <Route path="/about" element={<About />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path='/admin-login' element={<AdminLogin/>} />
