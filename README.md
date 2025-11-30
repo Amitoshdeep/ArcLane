@@ -21,6 +21,11 @@
   <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Backend-Node.js-43853D?style=for-the-badge&logo=node.js" />
 </p>
+<p align="center">
+  <a href="https://discord.gg/Dd3cR2JXD8">
+    <img src="https://img.shields.io/badge/Join%20Our%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+  </a>
+</p>
 
 <br/>
 
