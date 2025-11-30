@@ -6,6 +6,8 @@ import { connectDB } from "./config/db.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import linkRoutes from "./routes/linkRoutes.js";
 import adminAuth from "./routes/adminAuth.js";
+import adminCategories from "./routes/adminCategories.js";
+import adminLinks from "./routes/adminLinks.js";
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ connectDB();
 app.use("/api/categories", categoryRoutes);
 app.use("/api/links", linkRoutes);
 app.use("/api/admin", adminAuth);
+app.use("/api/admin/categories", adminCategories);
+app.use("/api/admin/links", adminLinks);
 
 // start server
 const port = process.env.PORT || 5000;
