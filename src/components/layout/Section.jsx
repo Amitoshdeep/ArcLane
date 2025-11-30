@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LinkRow from "./LinkRow";
 
-const ROW_LIMIT = 10;
+const ROW_LIMIT = 5;
 
 // pastel color palette generator
 const colors = [
