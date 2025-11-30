@@ -51,6 +51,18 @@ function Home() {
     (idx % 2 === 0 ? col1 : col2).push(entry);
   });
 
+  // Formater Pascal Case
+  const formatSection = (str) =>
+  str
+    ?.split(/(\W+)/)
+    .map((p) =>
+      /^[a-z0-9]+$/i.test(p)
+        ? p.charAt(0).toUpperCase() + p.slice(1)
+        : p
+    )
+    .join("") || "";
+
+
   return (
     <div className="min-h-screen flex flex-col items-center pb-20">
 
@@ -95,7 +107,7 @@ function Home() {
             </>
           ) : (
             grouped.map(([sec, items]) => (
-              <Section key={sec} title={sec} items={items} />
+              <Section key={sec} title={formatSection(sec)} items={items} />
             ))
           )}
         </div>
@@ -105,7 +117,7 @@ function Home() {
           {loading
             ? <SectionSkeleton />
             : col1.map(([sec, items]) => (
-                <Section key={sec} title={sec} items={items} />
+                <Section key={sec} title={formatSection(sec)} items={items} />
               ))
           }
         </div>
@@ -115,7 +127,7 @@ function Home() {
           {loading
             ? <SectionSkeleton />
             : col2.map(([sec, items]) => (
-                <Section key={sec} title={sec} items={items} />
+                <Section key={sec} title={formatSection(sec)} items={items} />
               ))
           }
         </div>

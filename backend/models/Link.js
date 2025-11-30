@@ -16,7 +16,12 @@ const LinkSchema = new mongoose.Schema({
     required: true
   },
 
-  section: { type: String, default: "General" },
+  section: {
+    type: String,
+    default: "general",       // lowercase default
+    set: v => v.toLowerCase() // normalize any input to lowercase
+  },
+
   rank: { type: Number, default: 999 },
 
   description: String,
