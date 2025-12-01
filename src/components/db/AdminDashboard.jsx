@@ -508,7 +508,18 @@ const LinkTable = ({ items, onEdit, onApprove, onReject, onDelete }) => (
 
 const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handleSaveEdit }) => (
   <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-    <div className="bg-[#0b0b0f] border border-white/10 rounded-2xl p-5 w-[90%] max-w-md text-white">
+    <div className="
+      bg-[#0b0b0f]
+      border border-white/10
+      rounded-2xl
+      p-5
+      w-[90%]
+      max-w-md
+      text-white
+      max-h-[90vh]          /* 🔥 limit modal height */
+      overflow-y-auto       /* 🔥 enable scrolling */
+      hide-scrollbar        /* optional */
+    ">
       <h3 className="text-lg font-semibold mb-3">Edit {editType}</h3>
 
       {editType === "category" && (
