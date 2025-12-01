@@ -2,24 +2,25 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function AdminLogin() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const login = async () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
-        { password },
+        { email, password },
         { withCredentials: true }
       );
 
       if (res.data.success) {
         window.location.href = "/dev";
       } else {
-        alert("Wrong password");
+        alert("Wrong credentials");
       }
 
     } catch {
-      alert("Wrong password");
+      alert("Wrong credentials");
     }
   };
 
@@ -29,8 +30,15 @@ export default function AdminLogin() {
         <h2 className="text-xl font-semibold mb-4">Admin Login</h2>
 
         <input
-          className="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 mb-3 outline-none"
-          placeholder="Enter admin password"
+          className="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 mb-3"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          className="w-full bg-black/40 border border-white/20 rounded-lg px-3 py-2 mb-3"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
