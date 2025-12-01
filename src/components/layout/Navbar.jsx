@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Github,Menu, Pen } from 'lucide-react';
 import { NavLink } from 'react-router-dom'
 import {navurls} from "constants"
+import { AiOutlineDiscord } from "react-icons/ai";
 
 const ICON_SIZE = 20;
 
@@ -24,13 +25,18 @@ function Navbar() {
       </div>
 
       <div className='flex items-center gap-5'>
+        <AiOutlineDiscord
+          className='cursor-pointer duration-300 text-white/50 hover:text-indigo-400'
+          onClick={() => window.open("https://discord.com/invite/Dd3cR2JXD8")}
+          size={ICON_SIZE + 4}
+        />
         <Github
           className='cursor-pointer duration-300 text-white/50 hover:text-white'
           onClick={() => window.open("https://github.com/Amitoshdeep/ArcLane")}
           size={ICON_SIZE}/>
         <Pen
           onClick={()=> location.href="/submit"}
-          className='cursor-pointer duration-300 text-white/50 hover:text-white'
+          className='cursor-pointer duration-300 text-white/50 hover:text-red-400'
           size={ICON_SIZE}/>
       </div>
       {/* For Calling Nav Links */}
