@@ -240,6 +240,7 @@ const AdminDashboard = () => {
           rank: editItem.rank,
           description: editItem.description,
           status: editItem.status,
+          tags: editItem.tags,
         });
       }
 
@@ -450,6 +451,18 @@ const LinkTable = ({ items, onEdit, onApprove, onReject, onDelete }) => (
         <div className="flex justify-between">
           <div>
             <div className="font-medium">{l.title}</div>
+            {l.tags && l.tags.length > 0 && (
+              <div className="mt-1 flex flex-wrap gap-1 text-[11px]">
+                {l.tags.map((t, i) => (
+                  <span
+                    key={i}
+                    className="px-2 py-0.5 bg-emerald-700/30 border border-emerald-500/30 rounded-full"
+                  >
+                    #{t}
+                  </span>
+                ))}
+              </div>
+            )}
             {l.urls && l.urls.length > 0 && (
             <div className="mt-1 space-y-1">
               {l.urls.map((u, index) => (
@@ -601,6 +614,27 @@ const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handl
             type="number"
             onChange={(v) => setEditItem({ ...editItem, rank: Number(v) })}
           />
+
+          <div className="mb-3">
+            <label className="block text-xs text-white/60 mb-1">Tags (comma-separated)</label>
+
+            <input
+              type="text"
+              className="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm"
+              value={editItem.tagsTemp ?? editItem.tags?.join(", ") ?? ""}
+              onChange={(e) =>
+                setEditItem({ ...editItem, tagsTemp: e.target.value })
+              }
+              onBlur={(e) => {
+                const finalTags = e.target.value
+                  .split(",")
+                  .map(t => t.trim())
+                  .filter(Boolean);
+
+                setEditItem({ ...editItem, tags: finalTags, tagsTemp: undefined });
+              }}
+            />
+          </div>
 
           <div className="mb-3">
             <label className="block text-xs text-white/60 mb-1">Description</label>
