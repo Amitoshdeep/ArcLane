@@ -3,7 +3,7 @@ import { Heart, X } from "lucide-react";
 import QRCode from "qrcode";
 
 function BuyMeCoffeeButton() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [qrSrc, setQrSrc] = useState("");
 
   const UPI_ID = "amitosh1999@ptyes";
