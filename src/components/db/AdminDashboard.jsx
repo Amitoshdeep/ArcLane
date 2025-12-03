@@ -149,14 +149,14 @@ const AdminDashboard = () => {
         {uniquePages.map((p, idx) =>
           p === "..." ? (
             <div
-              key={idx}
+              key={`ellipsis-${idx}`}
               className="px-2 py-1 text-white/40"
             >
               ...
             </div>
           ) : (
             <button
-              key={p}
+              key={`page-${p}`}
               onClick={() => setPage(p - 1)}
               className={`px-3 py-1.5 rounded-lg border ${
                 page + 1 === p
