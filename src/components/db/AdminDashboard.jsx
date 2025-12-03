@@ -236,6 +236,7 @@ const AdminDashboard = () => {
         await adminUpdateLink(editItem._id, {
           title: editItem.title,
           urls: editItem.urls,
+          categoryId: editItem.category,
           section: editItem.section,
           rank: editItem.rank,
           description: editItem.description,
@@ -372,6 +373,7 @@ const AdminDashboard = () => {
           editItem={editItem}
           setEditItem={setEditItem}
           editType={editType}
+          categories={categories}
           saving={saving}
           setEditType={setEditType}
           setSaving={setSaving}
@@ -506,7 +508,7 @@ const LinkTable = ({ items, onEdit, onApprove, onReject, onDelete }) => (
 
 // ---------------------------------
 
-const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handleSaveEdit }) => (
+const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handleSaveEdit, categories }) => (
   <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
     <div className="
       bg-[#0b0b0f]
@@ -611,6 +613,34 @@ const EditModal = ({ editItem, setEditItem, editType, setEditType, saving, handl
             >
               + Add URL
             </button>
+          </div>
+
+          <div className="mb-3">
+            <label className="block text-xs text-white/60 mb-1">Category</label>
+
+            <select
+              className="w-full bg-black/90 border border-white/20 rounded-lg px-3 py-2 text-sm"
+              value={editItem.category || editItem.categoryId?._id || ""}
+              onChange={(e) => setEditItem({ ...editItem, category: e.target.value })}
+            >
+              <option value="">Select Category</option>
+
+              {[...new Map(
+                  categories
+                    .filter(cat =>
+                      cat.status === "approved" ||
+                      cat._id === (editItem.category || editItem.categoryId?._id)
+                    )
+                    .map(cat => [cat._id, cat]) // map for dedupe
+                ).values()
+              ].map(cat => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.icon} {cat.name}
+                  {cat.status !== "approved" ? ` (${cat.status})` : ""}
+                </option>
+              ))}
+
+            </select>
           </div>
 
           <FormInput
