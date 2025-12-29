@@ -158,15 +158,17 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ---
 
-## 🤝 Contributing
+## 👋 New to Contributing?
 
-ArcLane is **open-source and community-driven**.
+If you’re interested in contributing to ArcLane, we’re happy to have you.
 
-👉 Read **CONTRIBUTING.md**
-👉 Check issues labeled **good first issue**
-👉 Ideas & discussions welcome
+Before getting started:
+- Read the [CONTRIBUTING.md](./CONTRIBUTING.md) file for guidelines
+- Check issues labeled **good first issue** for beginner-friendly tasks
+- Follow the branching and commit conventions mentioned there
 
-👉 **Join Discord:** https://discord.gg/Dd3cR2JXD8
+For questions, ideas, or discussions, feel free to join our Discord community:  
+👉 **https://discord.gg/Dd3cR2JXD8**
 
 ---
 
