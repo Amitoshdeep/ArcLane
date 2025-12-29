@@ -35,6 +35,16 @@
 
 </div>
 
+## 📑 Table of Contents
+- [Why ArcLane?](#-why-arclane)
+- [Core Features](#-core-features)
+- [Keyboard Shortcuts](#-keyboard-shortcuts)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Local Setup](#-local-setup)
+- [New to Contributing?](#-new-to-contributing)
+- [Roadmap](#-roadmap)
+- [License](#-license)
 ---
 
 ## ⭐ Why ArcLane?
