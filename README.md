@@ -15,10 +15,17 @@
 ### A clean, fast, curated link directory for Anime, Tech, Tools, Movies & more.
 
 <p align="center">
-  <a href="https://github.com/Amitoshdeep/ArcLane/stargazers"><img src="https://img.shields.io/github/stars/Amitoshdeep/ArcLane?style=for-the-badge"></a>
-  <a href="https://github.com/Amitoshdeep/ArcLane/issues"><img src="https://img.shields.io/github/issues/Amitoshdeep/ArcLane?style=for-the-badge"></a>
+  <a href="https://github.com/Amitoshdeep/ArcLane/stargazers">
+    <img src="https://img.shields.io/github/stars/Amitoshdeep/ArcLane?style=for-the-badge">
+  </a>
+  <a href="https://github.com/Amitoshdeep/ArcLane/issues">
+    <img src="https://img.shields.io/github/issues/Amitoshdeep/ArcLane?style=for-the-badge">
+  </a>
   <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Backend-Node.js-43853D?style=for-the-badge&logo=node.js" />
+  <a href="https://discord.gg/Dd3cR2JXD8">
+    <img src="https://img.shields.io/badge/Join%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+  </a>
 </p>
 
 🌐 **Live:** https://arc-lane.vercel.app/
@@ -158,6 +165,8 @@ ArcLane is **open-source and community-driven**.
 👉 Read **CONTRIBUTING.md**
 👉 Check issues labeled **good first issue**
 👉 Ideas & discussions welcome
+
+👉 **Join Discord:** https://discord.gg/Dd3cR2JXD8
 
 ---
 
