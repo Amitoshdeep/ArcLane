@@ -1,196 +1,133 @@
-# <div align="center">
+```md
+<div align="center">
+
 ```
+
 ░█████╗░██████╗░░█████╗░    ██╗░░░░░░█████╗░███╗░░██╗███████╗
 ██╔══██╗██╔══██╗██╔══██╗    ██║░░░░░██╔══██╗████╗░██║██╔════╝
-███████║██████╔╝██║░░╚═╝    ██║░░░░░███████║██╔██╗██║█████╗░░
-██╔══██║██╔══██╗██║░░██╗    ██║░░░░░██╔══██║██║╚████║██╔══╝░░
+███████║██████╔╝██║░░╚═╝    ██║░░░░░███████║██╔██╗░██║█████╗░░
+██╔══██║██╔══██╗██║░░██╗    ██║░░░░░██╔══██║██║╚██╗██║██╔══╝░░
 ██║░░██║██║░░██║╚█████╔╝    ███████╗██║░░██║██║░╚███║███████╗
 ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░    ╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝
+
 ```
 
-# 📘 **ArcLane | Everything You Need**
-
-### *A clean, fast, curated link directory for Anime, Tech, Tools, Movies & more.*
-
-<br/>
+# 📘 **ArcLane — Everything You Need**
+### A clean, fast, curated link directory for Anime, Tech, Tools, Movies & more.
 
 <p align="center">
-  <a href="https://github.com/Amitoshdeep/ArcLane/stargazers"><img src="https://img.shields.io/github/stars/Amitoshdeep/ArcLane?color=10B981&style=for-the-badge"></a>
-  <a href="https://github.com/Amitoshdeep/ArcLane/issues"><img src="https://img.shields.io/github/issues/Amitoshdeep/ArcLane?color=FBBF24&style=for-the-badge"></a>
-  <a href="https://github.com/Amitoshdeep/ArcLane"><img src="https://img.shields.io/github/repo-size/Amitoshdeep/ArcLane?color=3B82F6&style=for-the-badge"></a>
+  <a href="https://github.com/Amitoshdeep/ArcLane/stargazers"><img src="https://img.shields.io/github/stars/Amitoshdeep/ArcLane?style=for-the-badge"></a>
+  <a href="https://github.com/Amitoshdeep/ArcLane/issues"><img src="https://img.shields.io/github/issues/Amitoshdeep/ArcLane?style=for-the-badge"></a>
   <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Backend-Node.js-43853D?style=for-the-badge&logo=node.js" />
 </p>
-<p align="center">
-  <a href="https://discord.gg/Dd3cR2JXD8">
-    <img src="https://img.shields.io/badge/Join%20Our%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
-  </a>
-</p>
 
-<br/>
+🌐 **Live:** https://arc-lane.vercel.app/
 
-🚀 **Smart search.
-🔥 Auto-tagging.
-⚡ Fast navigation.
-🛠 Submit → Approve workflow.
-🎨 Minimal dark aesthetic.**
+🚀 Smart search • 🔥 Auto-tagging • ⚡ Fast navigation
+🛠 Submit → approve workflow • 🎨 Minimal dark aesthetic
 
 </div>
 
 ---
 
-# 🎥 **Live Demo GIF**
+## ⭐ Why ArcLane?
 
-> *(Add your GIF inside `/public/media/` and update the path below)*
-> Want me to generate a custom animated GIF UI-preview for your project? Just say **yes**.
+ArcLane exists to replace:
+- messy bookmark folders
+- random link dumps
+- outdated spreadsheets
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Amitoshdeep/ArcLane/main/.github/demo.gif" width="85%" />
-</p>
-
----
-
-# ⭐ **Highlights**
-
-### 🔍 **Smart Search**
-
-* Instant search across all content
-* **F** → focus search
-* **/** → GitHub-style search
-* **ESC** → clear input
-* Tags & descriptions included in search
+with a **single, curated, community-driven link lane**.
 
 ---
 
-### 📂 **Auto-Organized Sections**
+## ✨ Core Features
 
-* Auto-detected section names
-* Sticky section headers
-* Perfect 2-column masonry layout
-* Looks clean on all screen sizes
+### 🔍 Smart Search
+- Instant global search
+- Keyboard-first (`F`, `/`, `ESC`)
+- Tags + descriptions indexed
 
----
+### 🏷 Auto Tagging & Sections
+- URL-based tag extraction
+- Auto-organized sections
+- Clean masonry layout
 
-### 🏷️ **Automatic Tagging**
+### 🛠 Moderation Workflow
+- User submissions
+- Admin approve / reject / edit
+- Lightweight password-based admin auth
 
-* Extracted from:
-
-  * URL patterns
-  * Torrent hosts
-  * Streaming links
-  * GitHub / Docs
-  * Raw / Dub / Sub keywords
-* Cleaned & deduplicated automatically
-
----
-
-### 🛠️ **Moderation Workflow**
-
-Users can submit new content.
-Admin can:
-
-✔ Approve
-✔ Reject
-✔ Edit
-✔ Moderate
-
-Everything flows through a clean dashboard.
+### 🎨 UI / UX
+- Responsive (mobile → desktop)
+- Smooth animations
+- Keyboard shortcuts modal
+- Minimal, distraction-free design
 
 ---
 
-### 🔐 **Simple Admin Auth**
+## 🧭 Keyboard Shortcuts
 
-* No login system needed
-* One admin password in `.env`
-* Cookie-based protected routes
-* Lightweight + secure
-
----
-
-### 🎨 **UI / UX**
-
-* Sticky headers
-* Collapsible link rows
-* Beautiful favicon thumbnails
-* Smooth animations
-* 80% desktop width layout
-* Full mobile-responsive
-* Clean typography + spacing
-* Keyboard shortcuts modal (`?`)
+| Key | Action |
+|----|-------|
+| `F` / `/` | Focus search |
+| `ESC` | Clear / close |
+| `Alt + ↑ ↓` | Switch categories |
+| `Shift + /` | Shortcuts modal |
 
 ---
 
-# 🧭 **Keyboard Shortcuts**
+## 🧱 Tech Stack
 
-| Shortcut           | Action               |
-| ------------------ | -------------------- |
-| `F`                | Focus search         |
-| `/`                | GitHub-style focus   |
-| `ESC`              | Clear search         |
-| `Ctrl + Backspace` | Hard clear search    |
-| `Alt + ↑ / ↓`      | Switch categories    |
-| `Shift + /`        | Open shortcuts modal |
-| `ESC`              | Close modal          |
+**Frontend**
+- React + Vite
+- TailwindCSS
+- Lucide Icons
 
----
-
-# 🧱 **Tech Stack**
-
-### **Frontend**
-
-* React + Vite
-* TailwindCSS
-* Lucide Icons
-* React Toastify
-* Custom Hooks
-* Masonry layout
-
-### **Backend**
-
-* Node.js
-* Express
-* MongoDB + Mongoose
-* Hosted on Railway
-* CORS + cookie sessions
+**Backend**
+- Node.js
+- Express
+- MongoDB (Mongoose)
+- Hosted on Railway
 
 ---
 
-# 🗂 **Project Structure**
+## 📂 Project Structure
 
 ```
-project/
-│
+
+ArcLane/
 ├── frontend/
 │   ├── src/components/
-│   │   ├── layout/
-│   │   ├── ui/
-│   │   └── db/
 │   ├── src/pages/
 │   ├── src/utils/
-│   ├── src/api/
 │   └── App.jsx
 │
 ├── backend/
 │   ├── routes/
 │   ├── models/
-│   ├── config/
 │   └── server.js
 │
-└── README.md
-```
+├── README.md
+├── CONTRIBUTING.md
+├── ROADMAP.md
+└── CODE_OF_CONDUCT.md
+
+````
 
 ---
 
-# ⚙️ **Local Setup**
+## ⚙️ Local Setup
 
-## 🗄️ 1️⃣ Backend
-
+### 1️⃣ Backend
 ```bash
 cd backend
 npm install
-```
+npm run dev
+````
 
-### Create `.env`:
+`.env`
 
 ```
 MONGO_URI=your_mongo_uri
@@ -199,66 +136,69 @@ CLIENT_URL=http://localhost:5173
 PORT=5000
 ```
 
-### Run server:
-
-```bash
-npm run dev
-```
-
----
-
-## 🎨 2️⃣ Frontend
+### 2️⃣ Frontend
 
 ```bash
 cd frontend
 npm install
+npm run dev
 ```
 
-### Create `.env`:
+`.env`
 
 ```
 VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
-### Run frontend:
+---
 
-```bash
-npm run dev
+## 🤝 Contributing
+
+ArcLane is **open-source and community-driven**.
+
+👉 Read **CONTRIBUTING.md**
+👉 Check issues labeled **good first issue**
+👉 Ideas & discussions welcome
+
+---
+
+## 🗺 Roadmap
+
+Short-term and long-term plans live in **ROADMAP.md**.
+The roadmap is flexible and community-driven.
+
+---
+
+## 📄 License
+
+MIT — free to use, modify, and build upon.
+
 ```
 
 ---
 
-# 🛡️ **Admin Access**
+## 🧠 Founder verdict
 
-Visit:
+- Your original README = **A+ personality**
+- This version = **A+ personality + OSS clarity**
 
+This is now:
+- contributor-friendly
+- recruiter-friendly
+- maintainer-friendly
+
+---
+
+### Next killer moves (optional but powerful)
+1. Add **GitHub Discussions**
+2. Create first **Release v0.1.0**
+3. Add `good first issue` labels
+4. Pin ROADMAP.md in repo
+
+If you want, next I can:
+- rewrite CONTRIBUTING.md to match this tone
+- help you open your **first 5 issues**
+- help you write a **“Why ArcLane exists” manifesto**
+
+Founder energy unlocked 😤🔥
 ```
-/admin-login
-```
-
-Enter the password stored in your backend `.env`.
-
----
-
-# 💡 **Upcoming Features**
-
-* ⭐ Drag & drop link sorting
-* ⭐ Link screenshot previews
-* ⭐ Dead link checker (auto 404 scan)
-* ⭐ Bookmarks & user-local favorites
-* ⭐ Multi-admin support
-* ⭐ Light mode
-
----
-
-# 🤝 **Contributing**
-
-PRs, suggestions, improvements — all welcome!
-This project is designed to grow and become the “All-in-1 link lane” for everything.
-
----
-
-# 📄 **License**
-
-MIT License
-Feel free to use, modify, contribute, and build on it.
