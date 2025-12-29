@@ -172,32 +172,3 @@ The roadmap is flexible and community-driven.
 
 MIT — free to use, modify, and build upon.
 
-```
-
----
-
-## 🧠 Founder verdict
-
-- Your original README = **A+ personality**
-- This version = **A+ personality + OSS clarity**
-
-This is now:
-- contributor-friendly
-- recruiter-friendly
-- maintainer-friendly
-
----
-
-### Next killer moves (optional but powerful)
-1. Add **GitHub Discussions**
-2. Create first **Release v0.1.0**
-3. Add `good first issue` labels
-4. Pin ROADMAP.md in repo
-
-If you want, next I can:
-- rewrite CONTRIBUTING.md to match this tone
-- help you open your **first 5 issues**
-- help you write a **“Why ArcLane exists” manifesto**
-
-Founder energy unlocked 😤🔥
-```
