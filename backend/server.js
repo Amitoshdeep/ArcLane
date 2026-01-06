@@ -15,7 +15,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://arc-lane.vercel.app"
+    "https://arc-lane.vercel.app",
+    "https://arclane.deepamitosh.online/"
   ],
   credentials: true
 }));
